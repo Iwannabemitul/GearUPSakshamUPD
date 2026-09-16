@@ -1,0 +1,20 @@
+{
+    "aiQa": [
+        {
+            "q": "Why do I need SQL?",
+            "a": "Your role   Statistical Officer   requires you to analyse government datasets. That activity needs SQL at an Advanced level (4/5); your current evidence shows Intermediate (2/5), a gap of 2 levels, the largest gap in your profile. Closing it reduces time spent on manual data handling."
+        },
+        {
+            "q": "What should I learn next?",
+            "a": "Based on gap size and role relevance, your top priority is SQL, followed by Data Quality Frameworks. You're already in Phase 2 of your SQL learning path   Advanced SQL for Government Data."
+        },
+        {
+            "q": "Which competency is my biggest gap?",
+            "a": "SQL and Data Quality Frameworks are tied as your largest gaps, each 2 levels below the required level for your role."
+        },
+        {
+            "q": "How can I improve my Data Quality competency?",
+            "a": "The Data Quality & Validation Frameworks course (NSSTA, 3 days) is recommended. It's Phase 3 of your personalized learning path, and a Data Quality Assessment is available once you're ready to demonstrate the improvement."
+        }
+    ]
+}

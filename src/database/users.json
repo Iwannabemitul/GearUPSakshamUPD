@@ -1,0 +1,1157 @@
+{
+    "demo.officer@gov.in": {
+        "username": "Demo Officer",
+        "password": "gov12345",
+        "session": "gq5bp7ij0v6mw5kl8dwhmfovbaieetuxu378bcgth52on4c21b1j43kqdpdomdw7",
+        "id": 12121,
+        "designation": "Statistical Officer",
+        "department": "Department of Statistics",
+        "organization": "Government of Punjab",
+        "group": "Group B (Gazetted)",
+        "location": "Chandigarh",
+        "yearsOfService": 7,
+        "role": "Official Statistics & Data Analysis",
+        "reportsTo": "Deputy Director, Statistics",
+        "appRole": "employee",
+        "competencies": [
+            {
+                "name": "Survey Design",
+                "current": 3,
+                "required": 4,
+                "evidence": "Self-assessment + peer review, 2025",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Sampling",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Data Quality Frameworks",
+                "current": 4,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "SQL",
+                "current": 2,
+                "required": 4,
+                "evidence": "iGOT course completion + self-assessment",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Python",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Dec 2025"
+            },
+            {
+                "name": "Data Visualization",
+                "current": 3,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Feb 2026"
+            },
+            {
+                "name": "GIS",
+                "current": 1,
+                "required": 2,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Nov 2025"
+            },
+            {
+                "name": "Cybersecurity",
+                "current": 2,
+                "required": 3,
+                "evidence": "iGOT course completion",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Data Privacy",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Communication",
+                "current": 4,
+                "required": 4,
+                "evidence": "360 review, 2025",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Project Management",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Sep 2025"
+            }
+        ],
+        "assessmentsDone": [
+            "a-sql",
+            "a-dq",
+            "a-sd",
+            "a-dg",
+            "a-comm"
+        ],
+        "assessmentHistory": [
+            {
+                "assessment": {
+                    "id": "a-sql",
+                    "title": "SQL Skill Assessment",
+                    "competency": "SQL",
+                    "questions": 4,
+                    "minutes": 12,
+                    "difficulty": "Intermediate"
+                },
+                "score": 0,
+                "prevLevel": 2,
+                "newLevel": 2
+            },
+            {
+                "assessment": {
+                    "id": "a-dq",
+                    "title": "Data Quality Assessment",
+                    "competency": "Data Quality Frameworks",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Intermediate"
+                },
+                "score": 100,
+                "prevLevel": 2,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-sd",
+                    "title": "Survey Design Assessment",
+                    "competency": "Survey Design",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Advanced"
+                },
+                "score": 67,
+                "prevLevel": 3,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-dg",
+                    "title": "Digital Governance Assessment",
+                    "competency": "Cybersecurity",
+                    "questions": 3,
+                    "minutes": 8,
+                    "difficulty": "Basic"
+                },
+                "score": 0,
+                "prevLevel": 2,
+                "newLevel": 2
+            },
+            {
+                "assessment": {
+                    "id": "a-sd",
+                    "title": "Survey Design Assessment",
+                    "competency": "Survey Design",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Advanced"
+                },
+                "score": 33,
+                "prevLevel": 3,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-comm",
+                    "title": "Communication Assessment",
+                    "competency": "Communication",
+                    "questions": 3,
+                    "minutes": 8,
+                    "difficulty": "Basic"
+                },
+                "score": 0,
+                "prevLevel": 4,
+                "newLevel": 4
+            },
+            {
+                "assessment": {
+                    "id": "a-dq",
+                    "title": "Data Quality Assessment",
+                    "competency": "Data Quality Frameworks",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Intermediate"
+                },
+                "score": 0,
+                "prevLevel": 3,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-comm",
+                    "title": "Communication Assessment",
+                    "competency": "Communication",
+                    "questions": 3,
+                    "minutes": 8,
+                    "difficulty": "Basic"
+                },
+                "score": 0,
+                "prevLevel": 4,
+                "newLevel": 4
+            },
+            {
+                "assessment": {
+                    "id": "a-dq",
+                    "title": "Data Quality Assessment",
+                    "competency": "Data Quality Frameworks",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Intermediate"
+                },
+                "score": 100,
+                "correct": 3,
+                "wrong": 0,
+                "skipped": 0,
+                "prevLevel": 3,
+                "newLevel": 4
+            }
+        ],
+        "examsDone": [
+            "e-sql",
+            "e-dq",
+            "e-dg"
+        ],
+        "examHistory": [
+            {
+                "assessment": {
+                    "id": "e-sql",
+                    "title": "SQL Exam",
+                    "competency": "SQL",
+                    "questions": 12,
+                    "minutes": 30,
+                    "difficulty": "Advanced"
+                },
+                "score": 33,
+                "correct": 4,
+                "wrong": 8,
+                "skipped": 0,
+                "prevLevel": 2,
+                "newLevel": 2
+            },
+            {
+                "assessment": {
+                    "id": "e-sql",
+                    "title": "SQL Exam",
+                    "competency": "SQL",
+                    "questions": 12,
+                    "minutes": 30,
+                    "difficulty": "Advanced"
+                },
+                "score": 33,
+                "correct": 4,
+                "wrong": 8,
+                "skipped": 0,
+                "prevLevel": 2,
+                "newLevel": 2,
+                "aiReport": "Your latest SQL exam result of 33% on an Advanced-level test reflects the same level 2 score you held before, which tells us the material is currently stretching beyond your comfort zone. Given that SQL is a core requirement for your Statistical Officer role and your profile shows a gap of two full levels between where you are and where you need to be, this is an important area to focus on. The encouraging news is that you have proven you can grow in this platform — for example, you moved Data Quality Frameworks from level 3 to level 4 — so with steady, targeted practice on foundational SQL concepts before tackling advanced problems, you are well-positioned to close this gap. Since your role in Official Statistics & Data Analysis depends heavily on querying and working with data, treating SQL as a priority over the next few months will pay off directly in your day-to-day work.",
+                "questionReview": [
+                    {
+                        "question": "Which clause filters individual rows before grouping?",
+                        "options": [
+                            "WHERE",
+                            "HAVING",
+                            "GROUP BY",
+                            "ORDER BY"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "WHERE filters individual rows before any grouping or aggregation takes place, unlike HAVING which filters groups.",
+                        "userIndex": 1
+                    },
+                    {
+                        "question": "Which JOIN returns only rows that match in both tables?",
+                        "options": [
+                            "INNER JOIN",
+                            "LEFT JOIN",
+                            "RIGHT JOIN",
+                            "FULL OUTER JOIN"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "An INNER JOIN returns only the rows where the join condition is satisfied in both tables.",
+                        "userIndex": 2
+                    },
+                    {
+                        "question": "Which keyword removes duplicate rows from a result set?",
+                        "options": [
+                            "DISTINCT",
+                            "UNIQUE",
+                            "FILTER",
+                            "GROUP"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "DISTINCT removes duplicate rows from a query's result set, leaving only unique combinations.",
+                        "userIndex": 0
+                    },
+                    {
+                        "question": "What is the purpose of a primary key?",
+                        "options": [
+                            "Uniquely identify each row",
+                            "Store large text",
+                            "Compress data",
+                            "Encrypt data"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "A primary key uniquely identifies each row in a table, ensuring no two rows share the same identifying value.",
+                        "userIndex": 0
+                    },
+                    {
+                        "question": "Which clause is used to sort query results?",
+                        "options": [
+                            "WHERE",
+                            "HAVING",
+                            "ORDER BY",
+                            "GROUP BY"
+                        ],
+                        "correctIndex": 2,
+                        "explanation": "ORDER BY arranges the rows of a query result in ascending or descending order based on specified columns.",
+                        "userIndex": 2
+                    },
+                    {
+                        "question": "What does SQL stand for?",
+                        "options": [
+                            "Structured Query Language",
+                            "Simple Query Logic",
+                            "Sequential Query Language",
+                            "Structured Question Language"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "SQL stands for Structured Query Language, the standard language for managing and querying relational databases.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Which function returns the average of a numeric column?",
+                        "options": [
+                            "AVG()",
+                            "MEAN()",
+                            "SUM()",
+                            "MID()"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "AVG() computes the arithmetic mean of the non-null numeric values in a column.",
+                        "userIndex": 1
+                    },
+                    {
+                        "question": "A foreign key is used to:",
+                        "options": [
+                            "Link records between tables",
+                            "Encrypt a column",
+                            "Speed up inserts",
+                            "Rename a table"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "A foreign key links records between tables by referencing the primary key of another table, enforcing relationships.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Which statement is used to add new rows to a table?",
+                        "options": [
+                            "UPDATE",
+                            "INSERT",
+                            "ALTER",
+                            "CREATE"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "INSERT is the SQL statement used to add new rows of data into a table.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "What does normalization primarily reduce?",
+                        "options": [
+                            "Query speed",
+                            "Data redundancy",
+                            "Storage cost only",
+                            "Number of tables"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Normalization organizes data to reduce redundancy, so the same fact isn't stored in multiple places inconsistently.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Which clause limits the number of rows returned?",
+                        "options": [
+                            "WHERE",
+                            "LIMIT",
+                            "TOP only",
+                            "HAVING"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "LIMIT restricts a query's result set to a specified maximum number of rows.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "A transaction that is atomic means:",
+                        "options": [
+                            "It can be partially applied",
+                            "It completes fully or not at all",
+                            "It runs in parallel",
+                            "It skips validation"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Atomicity means a transaction is treated as a single unit: it either completes fully or has no effect at all.",
+                        "userIndex": 1
+                    }
+                ]
+            },
+            {
+                "assessment": {
+                    "id": "e-dq",
+                    "title": "Data Quality Exam",
+                    "competency": "Data Quality Frameworks",
+                    "questions": 12,
+                    "minutes": 30,
+                    "difficulty": "Advanced"
+                },
+                "score": 8,
+                "correct": 1,
+                "wrong": 11,
+                "skipped": 0,
+                "prevLevel": 4,
+                "newLevel": 4,
+                "aiReport": "Your latest Data Quality Frameworks exam resulted in an 8% score, with only 1 correct answer out of 12, and your competency level remains at 4 — the same level you earned after previously scoring a perfect 100% on this topic. That earlier success showed you are fully capable of mastering Data Quality at the highest level, so this result is best read as a temporary dip rather than a true reflection of where you stand. Since Data Quality Frameworks already meets your role requirement as a Statistical Officer, your energy is better channeled into closing the larger gaps visible in your profile, especially SQL where you are two levels below what your position demands. You have proven on this platform that you can level up when you commit to focused preparation, and the same approach will serve you well wherever you need to grow next.",
+                "questionReview": [
+                    {
+                        "question": "Which of these is a core dimension of data quality?",
+                        "options": [
+                            "Consistency",
+                            "Popularity",
+                            "Novelty",
+                            "Aesthetics"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Consistency is one of the recognized data quality dimensions, alongside accuracy, completeness, and timeliness.",
+                        "userIndex": 1
+                    },
+                    {
+                        "question": "Duplicate records in a dataset primarily harm which dimension?",
+                        "options": [
+                            "Timeliness",
+                            "Uniqueness",
+                            "Currency",
+                            "Relevance"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Duplicate records mean the same real-world entity is represented more than once, which directly harms uniqueness.",
+                        "userIndex": 2
+                    },
+                    {
+                        "question": "What is the first step in a typical data validation pipeline?",
+                        "options": [
+                            "Archiving",
+                            "Schema/format checks",
+                            "Publishing",
+                            "Visualization"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Schema and format checks are typically run first to catch structural issues before deeper checks or publishing happen.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Data that is outdated primarily fails which dimension?",
+                        "options": [
+                            "Accuracy",
+                            "Timeliness",
+                            "Completeness",
+                            "Uniqueness"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Outdated data fails the timeliness dimension, since it no longer reflects the current state of the real world.",
+                        "userIndex": 1
+                    },
+                    {
+                        "question": "Missing values in a required field mainly affect:",
+                        "options": [
+                            "Completeness",
+                            "Popularity",
+                            "Novelty",
+                            "Aesthetics"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Missing values in a required field are a completeness problem, since not all necessary data is present.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "A data quality dashboard is mainly used to:",
+                        "options": [
+                            "Hide errors",
+                            "Monitor and track data health metrics",
+                            "Delete bad records automatically",
+                            "Replace validation rules"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "A data quality dashboard tracks and monitors data health metrics so issues can be spotted and addressed over time.",
+                        "userIndex": 2
+                    },
+                    {
+                        "question": "Which technique helps detect duplicate records?",
+                        "options": [
+                            "Deduplication matching",
+                            "Random sampling only",
+                            "Data encryption",
+                            "Data compression"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Deduplication matching compares records to identify and flag likely duplicates within a dataset.",
+                        "userIndex": 2
+                    },
+                    {
+                        "question": "Referential integrity ensures:",
+                        "options": [
+                            "Foreign key values match existing primary keys",
+                            "Faster queries",
+                            "Smaller file sizes",
+                            "Better formatting"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Referential integrity ensures that foreign key values always correspond to an existing primary key value.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "A validation rule that rejects a negative age value is checking for:",
+                        "options": [
+                            "Timeliness",
+                            "Validity",
+                            "Popularity",
+                            "Consistency"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Rejecting an impossible value like a negative age is a validity check, ensuring data conforms to expected rules.",
+                        "userIndex": 0
+                    },
+                    {
+                        "question": "Data profiling is typically done to:",
+                        "options": [
+                            "Understand structure and content of data",
+                            "Encrypt sensitive fields",
+                            "Publish reports",
+                            "Train models only"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Data profiling examines a dataset to understand its structure, content, and quality before further use.",
+                        "userIndex": 1
+                    },
+                    {
+                        "question": "Which of these best describes data completeness?",
+                        "options": [
+                            "All required data is present",
+                            "Data is stored securely",
+                            "Data is visually appealing",
+                            "Data is fast to query"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Completeness means all the data that is required to be present actually is present, with no missing required values.",
+                        "userIndex": 1
+                    },
+                    {
+                        "question": "An audit trail for data changes primarily supports:",
+                        "options": [
+                            "Accountability and traceability",
+                            "Faster processing",
+                            "Better visualization",
+                            "Lower storage cost"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "An audit trail records who changed what and when, supporting accountability and traceability of data changes.",
+                        "userIndex": 2
+                    }
+                ]
+            },
+            {
+                "assessment": {
+                    "id": "e-dg",
+                    "title": "Digital Governance Exam",
+                    "competency": "Cybersecurity",
+                    "questions": 12,
+                    "minutes": 30,
+                    "difficulty": "Advanced"
+                },
+                "score": 8,
+                "correct": 1,
+                "wrong": 11,
+                "skipped": 0,
+                "prevLevel": 2,
+                "newLevel": 2,
+                "aiReport": "You scored 8% on the Digital Governance Exam for Cybersecurity, correctly answering just 1 out of 12 questions, which keeps your competency at level 2. While this result shows Cybersecurity still needs work, it is important to remember that your profile already proves you can master tough topics — you moved Data Quality Frameworks from level 3 all the way to level 4 after scoring a perfect 100% on that exam. As a Statistical Officer in Official Statistics and Data Analysis, both Cybersecurity and SQL are areas where your role demands growth, and since SQL sits two full levels below where it needs to be, that would be the highest-priority gap to focus on next. You have shown on this platform that steady, targeted effort leads to real level gains, so keep building on that same momentum.",
+                "questionReview": [
+                    {
+                        "question": "Which practice reduces risk when handling sensitive administrative data?",
+                        "options": [
+                            "Sharing credentials for convenience",
+                            "Role-based access control",
+                            "Disabling audit logs",
+                            "Using default passwords"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Role-based access control limits who can view or change sensitive data to only those who need it for their role.",
+                        "userIndex": 1
+                    },
+                    {
+                        "question": "A digital signature primarily provides:",
+                        "options": [
+                            "Faster upload speed",
+                            "Authenticity and integrity of a document",
+                            "Free storage",
+                            "Automatic translation"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "A digital signature cryptographically confirms who created a document and that it hasn't been altered since signing.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Phishing attempts most often arrive via:",
+                        "options": [
+                            "Official department circulars",
+                            "Unexpected emails or links",
+                            "Printed memos",
+                            "In-person meetings only"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Phishing most commonly arrives through unexpected emails or links designed to trick the recipient into acting on them.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Two-factor authentication mainly improves:",
+                        "options": [
+                            "Login speed",
+                            "Account security by requiring a second verification step",
+                            "Data storage capacity",
+                            "Network bandwidth"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Two-factor authentication improves account security by requiring a second, independent verification step at login.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "A strong password policy typically requires:",
+                        "options": [
+                            "Reusing the same password everywhere",
+                            "A mix of length and complexity",
+                            "Sharing passwords with colleagues",
+                            "Writing passwords on sticky notes"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "A strong password policy typically requires a mix of length and complexity to make passwords harder to guess or crack.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Encryption at rest mainly protects:",
+                        "options": [
+                            "Data while it is being typed",
+                            "Stored data from unauthorized access",
+                            "Network speed",
+                            "Screen brightness"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Encryption at rest protects stored data from being read by anyone who gains unauthorized access to the storage itself.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "A firewall's main purpose is to:",
+                        "options": [
+                            "Compress files",
+                            "Monitor and control network traffic",
+                            "Translate documents",
+                            "Back up data automatically"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "A firewall monitors and controls network traffic, allowing or blocking connections based on defined security rules.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Regular software updates help primarily by:",
+                        "options": [
+                            "Patching known security vulnerabilities",
+                            "Changing the user interface",
+                            "Increasing file size",
+                            "Slowing down the system"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Regular updates primarily patch known security vulnerabilities before they can be exploited.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "An audit log is useful mainly for:",
+                        "options": [
+                            "Improving screen resolution",
+                            "Tracking who accessed or changed a system",
+                            "Reducing file size",
+                            "Automating translations"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "An audit log records system access and changes, making it possible to trace who did what and when.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "The principle of least privilege means:",
+                        "options": [
+                            "Giving users only the access they need to do their job",
+                            "Giving all users admin rights",
+                            "Removing all access controls",
+                            "Sharing one account across a team"
+                        ],
+                        "correctIndex": 0,
+                        "explanation": "Least privilege means giving users only the access rights they need to perform their job, and nothing more.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "A data breach should typically be:",
+                        "options": [
+                            "Ignored if small",
+                            "Reported through the appropriate incident process",
+                            "Kept confidential from IT",
+                            "Fixed only after public disclosure"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "A data breach should be reported through the organization's appropriate incident response process without delay.",
+                        "userIndex": 3
+                    },
+                    {
+                        "question": "Public Wi-Fi networks are generally considered:",
+                        "options": [
+                            "Always fully secure",
+                            "Higher risk for sensitive transactions",
+                            "Faster than private networks",
+                            "Immune to interception"
+                        ],
+                        "correctIndex": 1,
+                        "explanation": "Public Wi-Fi networks are generally considered higher risk for sensitive transactions since traffic can be intercepted.",
+                        "userIndex": 3
+                    }
+                ]
+            }
+        ]
+    },
+    "testificate@test.com": {
+        "username": "Testificate",
+        "password": "12345678",
+        "session": "39s4bvyhgcg0cimdpgvuhhd3pubs345rfz0ut61gh8d0m0eurrmwwf6mwo4ro7tl",
+        "id": 12121,
+        "designation": "Statistical Officer",
+        "department": "Department of Statistics",
+        "organization": "Government of Punjab",
+        "group": "Group B (Gazetted)",
+        "location": "Chandigarh",
+        "yearsOfService": 7,
+        "role": "Official Statistics & Data Analysis",
+        "reportsTo": "Deputy Director, Statistics",
+        "appRole": "employee",
+        "competencies": [
+            {
+                "name": "Survey Design",
+                "current": 3,
+                "required": 4,
+                "evidence": "Self-assessment + peer review, 2025",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Sampling",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Data Quality Frameworks",
+                "current": 3,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "SQL",
+                "current": 2,
+                "required": 4,
+                "evidence": "iGOT course completion + self-assessment",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Python",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Dec 2025"
+            },
+            {
+                "name": "Data Visualization",
+                "current": 3,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Feb 2026"
+            },
+            {
+                "name": "GIS",
+                "current": 1,
+                "required": 2,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Nov 2025"
+            },
+            {
+                "name": "Cybersecurity",
+                "current": 2,
+                "required": 3,
+                "evidence": "iGOT course completion",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Data Privacy",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Communication",
+                "current": 4,
+                "required": 4,
+                "evidence": "360 review, 2025",
+                "lastAssessed": "Just now"
+            },
+            {
+                "name": "Project Management",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Sep 2025"
+            }
+        ],
+        "assessmentsDone": [
+            "a-sql",
+            "a-dq",
+            "a-sd",
+            "a-dg",
+            "a-comm"
+        ],
+        "assessmentHistory": [
+            {
+                "assessment": {
+                    "id": "a-sql",
+                    "title": "SQL Skill Assessment",
+                    "competency": "SQL",
+                    "questions": 4,
+                    "minutes": 12,
+                    "difficulty": "Intermediate"
+                },
+                "score": 0,
+                "prevLevel": 2,
+                "newLevel": 2
+            },
+            {
+                "assessment": {
+                    "id": "a-dq",
+                    "title": "Data Quality Assessment",
+                    "competency": "Data Quality Frameworks",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Intermediate"
+                },
+                "score": 100,
+                "prevLevel": 2,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-sd",
+                    "title": "Survey Design Assessment",
+                    "competency": "Survey Design",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Advanced"
+                },
+                "score": 67,
+                "prevLevel": 3,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-dg",
+                    "title": "Digital Governance Assessment",
+                    "competency": "Cybersecurity",
+                    "questions": 3,
+                    "minutes": 8,
+                    "difficulty": "Basic"
+                },
+                "score": 0,
+                "prevLevel": 2,
+                "newLevel": 2
+            },
+            {
+                "assessment": {
+                    "id": "a-sd",
+                    "title": "Survey Design Assessment",
+                    "competency": "Survey Design",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Advanced"
+                },
+                "score": 33,
+                "prevLevel": 3,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-comm",
+                    "title": "Communication Assessment",
+                    "competency": "Communication",
+                    "questions": 3,
+                    "minutes": 8,
+                    "difficulty": "Basic"
+                },
+                "score": 0,
+                "prevLevel": 4,
+                "newLevel": 4
+            },
+            {
+                "assessment": {
+                    "id": "a-dq",
+                    "title": "Data Quality Assessment",
+                    "competency": "Data Quality Frameworks",
+                    "questions": 3,
+                    "minutes": 10,
+                    "difficulty": "Intermediate"
+                },
+                "score": 0,
+                "prevLevel": 3,
+                "newLevel": 3
+            },
+            {
+                "assessment": {
+                    "id": "a-comm",
+                    "title": "Communication Assessment",
+                    "competency": "Communication",
+                    "questions": 3,
+                    "minutes": 8,
+                    "difficulty": "Basic"
+                },
+                "score": 0,
+                "prevLevel": 4,
+                "newLevel": 4
+            }
+        ],
+        "examsDone": [
+            "e-sql"
+        ],
+        "examHistory": [
+            {
+                "assessment": {
+                    "id": "e-sql",
+                    "title": "SQL Exam",
+                    "competency": "SQL",
+                    "questions": 12,
+                    "minutes": 30,
+                    "difficulty": "Advanced"
+                },
+                "score": 33,
+                "correct": 4,
+                "wrong": 8,
+                "skipped": 0,
+                "prevLevel": 2,
+                "newLevel": 2
+            }
+        ]
+    },
+    "admin@test.com": {
+        "username": "MrAdmin",
+        "password": "admin",
+        "session": "6b8zehn2wz1zijesi6ficklowvdbmrkd8cjugkdqt5skyf47byx0dsmudraugax9",
+        "id": 12123,
+        "designation": "Deputy Director, Statistics",
+        "department": "Department of Statistics",
+        "organization": "Government of Punjab",
+        "group": "Group A (Gazetted)",
+        "location": "Chandigarh",
+        "yearsOfService": 14,
+        "role": "Departmental Administration & Workforce Planning",
+        "reportsTo": "Director, Statistics",
+        "appRole": "admin",
+        "competencies": [
+            {
+                "name": "Survey Design",
+                "current": 3,
+                "required": 4,
+                "evidence": "Self-assessment + peer review, 2025",
+                "lastAssessed": "Mar 2026"
+            },
+            {
+                "name": "Sampling",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Data Quality Frameworks",
+                "current": 2,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Feb 2026"
+            },
+            {
+                "name": "SQL",
+                "current": 2,
+                "required": 4,
+                "evidence": "iGOT course completion + self-assessment",
+                "lastAssessed": "Apr 2026"
+            },
+            {
+                "name": "Python",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Dec 2025"
+            },
+            {
+                "name": "Data Visualization",
+                "current": 3,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Feb 2026"
+            },
+            {
+                "name": "GIS",
+                "current": 1,
+                "required": 2,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Nov 2025"
+            },
+            {
+                "name": "Cybersecurity",
+                "current": 2,
+                "required": 3,
+                "evidence": "iGOT course completion",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Data Privacy",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Communication",
+                "current": 4,
+                "required": 4,
+                "evidence": "360 review, 2025",
+                "lastAssessed": "Oct 2025"
+            },
+            {
+                "name": "Project Management",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Sep 2025"
+            }
+        ],
+        "assessmentsDone": [],
+        "assessmentHistory": []
+    },
+    "hello@test.com": {
+        "username": "Hello",
+        "password": "hello",
+        "session": "9wyozx8myv97qr6ufaqwetq2i7fil8r1y9t1q1bwt4k7g9ryvaqnab1v6maop7mx",
+        "id": 12122,
+        "designation": "Data Analyst",
+        "department": "Department of Statistics",
+        "organization": "Government of Punjab",
+        "group": "Group B (Gazetted)",
+        "location": "Chandigarh",
+        "yearsOfService": 3,
+        "role": "Official Statistics & Data Analysis",
+        "reportsTo": "Deputy Director, Statistics",
+        "appRole": "employee",
+        "competencies": [
+            {
+                "name": "Survey Design",
+                "current": 3,
+                "required": 4,
+                "evidence": "Self-assessment + peer review, 2025",
+                "lastAssessed": "Mar 2026"
+            },
+            {
+                "name": "Sampling",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Data Quality Frameworks",
+                "current": 2,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Feb 2026"
+            },
+            {
+                "name": "SQL",
+                "current": 2,
+                "required": 4,
+                "evidence": "iGOT course completion + self-assessment",
+                "lastAssessed": "Apr 2026"
+            },
+            {
+                "name": "Python",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Dec 2025"
+            },
+            {
+                "name": "Data Visualization",
+                "current": 3,
+                "required": 4,
+                "evidence": "Manager review, 2025",
+                "lastAssessed": "Feb 2026"
+            },
+            {
+                "name": "GIS",
+                "current": 1,
+                "required": 2,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Nov 2025"
+            },
+            {
+                "name": "Cybersecurity",
+                "current": 2,
+                "required": 3,
+                "evidence": "iGOT course completion",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Data Privacy",
+                "current": 3,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Jan 2026"
+            },
+            {
+                "name": "Communication",
+                "current": 4,
+                "required": 4,
+                "evidence": "360 review, 2025",
+                "lastAssessed": "Oct 2025"
+            },
+            {
+                "name": "Project Management",
+                "current": 2,
+                "required": 3,
+                "evidence": "Self-assessment, 2025",
+                "lastAssessed": "Sep 2025"
+            }
+        ],
+        "assessmentsDone": [],
+        "assessmentHistory": []
+    }
+}

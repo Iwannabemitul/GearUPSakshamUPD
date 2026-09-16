@@ -1,0 +1,132 @@
+// Saksham Skill Intelligence — Workstream A persistence schema (SQLite).
+//
+// NOTE ON ENUMS: the Prisma SQLite provider does not support `enum` blocks,
+// so the brief's enums are modelled as String columns with a fixed value
+// domain documented next to each field:
+//   role            -> "EMPLOYEE" | "TRAINER" | "ADMIN"
+//   kind            -> "CHECKPOINT" | "EXAM"
+//   type            -> "ASSESSMENT" | "EXAM" | "COURSE" | "LEARNING_PATH"
+//   status          -> "PENDING" | "STARTED" | "COMPLETED" | "EXPIRED"
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  passwordHash   String
+  name           String
+  role           String // EMPLOYEE | TRAINER | ADMIN
+  designation    String?
+  department     String?
+  organization   String?
+  location       String?
+  yearsOfService Int?
+  reportsTo      String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  competencies        Competency[]
+  assessmentsDone     AssessmentAttempt[]
+  assignmentsAuthored Assignment[]        @relation("Author")
+  assignmentsReceived Assignment[]        @relation("Assignee")
+  authoredAssessments AssessmentMeta[]
+  sessions            Session[]
+}
+
+model Competency {
+  id           String    @id @default(cuid())
+  userId       String
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name         String
+  current      Int
+  required     Int
+  evidence     String?
+  lastAssessed DateTime?
+  category     String?
+
+  @@unique([userId, name])
+}
+
+model AssessmentMeta {
+  id          String @id @default(cuid())
+  externalId  String @unique // "a-sql", "e-sql", ... from assessments.json
+  title       String
+  competency  String
+  questions   Int
+  minutes     Int
+  difficulty  String
+  kind        String // CHECKPOINT | EXAM
+  isPublished Boolean @default(false)
+  authorId    String?
+  author      User?   @relation(fields: [authorId], references: [id])
+
+  attempts AssessmentAttempt[]
+  items    Question[]
+}
+
+model Question {
+  id           String         @id @default(cuid())
+  assessmentId String
+  assessment   AssessmentMeta @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  text         String
+  options      String // JSON array of strings
+  correctIndex Int
+  explanation  String?
+  order        Int
+}
+
+model AssessmentAttempt {
+  id               String         @id @default(cuid())
+  userId           String
+  user             User           @relation(fields: [userId], references: [id])
+  assessmentId     String
+  assessment       AssessmentMeta @relation(fields: [assessmentId], references: [id])
+  startedAt        DateTime       @default(now())
+  submittedAt      DateTime?
+  score            Int? // 0-100
+  correct          Int?
+  wrong            Int?
+  skipped          Int?
+  prevLevel        Int?
+  newLevel         Int?
+  terminatedReason String?
+  violations       String? // JSON array of {reason, at}
+  answers          String? // JSON array of {questionId, userIndex}
+
+  @@index([userId, submittedAt])
+}
+
+model Assignment {
+  id          String   @id @default(cuid())
+  authorId    String
+  author      User     @relation("Author", fields: [authorId], references: [id])
+  assigneeId  String
+  assignee    User     @relation("Assignee", fields: [assigneeId], references: [id])
+  type        String // ASSESSMENT | EXAM | COURSE | LEARNING_PATH
+  assessmentId String? // external assessment id for ASSESSMENT / EXAM
+  courseId    String? // iGOT course id for COURSE
+  note        String?
+  dueAt       DateTime?
+  status      String   @default("PENDING") // PENDING | STARTED | COMPLETED | EXPIRED
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+
+  @@index([assigneeId, status])
+  @@index([createdAt])
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,946 @@
+{
+    "assessments": [
+        {
+            "id": "a-sql",
+            "title": "SQL Skill Assessment",
+            "competency": "SQL",
+            "questions": 4,
+            "minutes": 12,
+            "difficulty": "Intermediate"
+        },
+        {
+            "id": "a-dq",
+            "title": "Data Quality Assessment",
+            "competency": "Data Quality Frameworks",
+            "questions": 3,
+            "minutes": 10,
+            "difficulty": "Intermediate"
+        },
+        {
+            "id": "a-sd",
+            "title": "Survey Design Assessment",
+            "competency": "Survey Design",
+            "questions": 3,
+            "minutes": 10,
+            "difficulty": "Advanced"
+        },
+        {
+            "id": "a-dg",
+            "title": "Digital Governance Assessment",
+            "competency": "Cybersecurity",
+            "questions": 3,
+            "minutes": 8,
+            "difficulty": "Basic"
+        },
+        {
+            "id": "a-comm",
+            "title": "Communication Assessment",
+            "competency": "Communication",
+            "questions": 3,
+            "minutes": 8,
+            "difficulty": "Basic"
+        }
+    ],
+    "questionBank": {
+        "a-sql": [
+            {
+                "q": "Which SQL clause is used to filter groups after aggregation?",
+                "options": [
+                    "WHERE",
+                    "HAVING",
+                    "GROUP BY",
+                    "ORDER BY"
+                ],
+                "answer": 1,
+                "explanation": "HAVING filters groups after GROUP BY has aggregated rows, whereas WHERE filters individual rows before aggregation."
+            },
+            {
+                "q": "Which JOIN returns all rows from the left table and matched rows from the right?",
+                "options": [
+                    "INNER JOIN",
+                    "RIGHT JOIN",
+                    "LEFT JOIN",
+                    "CROSS JOIN"
+                ],
+                "answer": 2,
+                "explanation": "A LEFT JOIN keeps every row from the left table and fills in NULLs for any right-table columns that have no match."
+            },
+            {
+                "q": "Which function counts the number of non-null rows in a column?",
+                "options": [
+                    "SUM()",
+                    "COUNT()",
+                    "TOTAL()",
+                    "LEN()"
+                ],
+                "answer": 1,
+                "explanation": "COUNT() counts the number of non-null values in a column (or rows, when used as COUNT(*))."
+            },
+            {
+                "q": "What does an index primarily improve?",
+                "options": [
+                    "Data accuracy",
+                    "Query read performance",
+                    "Storage compression",
+                    "Data privacy"
+                ],
+                "answer": 1,
+                "explanation": "An index speeds up query read performance by letting the database locate matching rows without scanning the whole table."
+            }
+        ],
+        "a-dq": [
+            {
+                "q": "Which of these is a core dimension of data quality?",
+                "options": [
+                    "Consistency",
+                    "Popularity",
+                    "Novelty",
+                    "Aesthetics"
+                ],
+                "answer": 0,
+                "explanation": "Consistency is one of the recognized data quality dimensions, alongside accuracy, completeness, and timeliness."
+            },
+            {
+                "q": "Duplicate records in a dataset primarily harm which dimension?",
+                "options": [
+                    "Timeliness",
+                    "Uniqueness",
+                    "Currency",
+                    "Relevance"
+                ],
+                "answer": 1,
+                "explanation": "Duplicate records mean the same real-world entity is represented more than once, which directly harms uniqueness."
+            },
+            {
+                "q": "What is the first step in a typical data validation pipeline?",
+                "options": [
+                    "Archiving",
+                    "Schema/format checks",
+                    "Publishing",
+                    "Visualization"
+                ],
+                "answer": 1,
+                "explanation": "Schema and format checks are typically run first to catch structural issues before deeper checks or publishing happen."
+            }
+        ],
+        "a-sd": [
+            {
+                "q": "What does stratified sampling primarily help ensure?",
+                "options": [
+                    "Lower cost only",
+                    "Representation across subgroups",
+                    "Faster data entry",
+                    "Higher response rate always"
+                ],
+                "answer": 1,
+                "explanation": "Stratified sampling divides the population into subgroups and samples from each, ensuring those subgroups are represented."
+            },
+            {
+                "q": "A pilot survey is mainly used to:",
+                "options": [
+                    "Publish final results",
+                    "Test and refine the questionnaire",
+                    "Replace the main survey",
+                    "Reduce sample size"
+                ],
+                "answer": 1,
+                "explanation": "A pilot survey is a small trial run used to test and refine the questionnaire before the full survey is fielded."
+            },
+            {
+                "q": "Non-response bias arises when:",
+                "options": [
+                    "Everyone responds identically",
+                    "Non-respondents differ systematically from respondents",
+                    "The sample is too large",
+                    "Questions are too short"
+                ],
+                "answer": 1,
+                "explanation": "Non-response bias occurs when people who don't respond differ in meaningful ways from those who do, skewing results."
+            }
+        ],
+        "a-dg": [
+            {
+                "q": "Which practice reduces risk when handling sensitive administrative data?",
+                "options": [
+                    "Sharing credentials for convenience",
+                    "Role-based access control",
+                    "Disabling audit logs",
+                    "Using default passwords"
+                ],
+                "answer": 1,
+                "explanation": "Role-based access control limits who can view or change sensitive data to only those who need it for their role."
+            },
+            {
+                "q": "A digital signature primarily provides:",
+                "options": [
+                    "Faster upload speed",
+                    "Authenticity and integrity of a document",
+                    "Free storage",
+                    "Automatic translation"
+                ],
+                "answer": 1,
+                "explanation": "A digital signature cryptographically confirms who created a document and that it hasn't been altered since signing."
+            },
+            {
+                "q": "Phishing attempts most often arrive via:",
+                "options": [
+                    "Official department circulars",
+                    "Unexpected emails or links",
+                    "Printed memos",
+                    "In-person meetings only"
+                ],
+                "answer": 1,
+                "explanation": "Phishing most commonly arrives through unexpected emails or links designed to trick the recipient into acting on them."
+            }
+        ],
+        "a-comm": [
+            {
+                "q": "In a report for policymakers, the executive summary should:",
+                "options": [
+                    "Contain every technical detail",
+                    "Highlight key findings and implications concisely",
+                    "Be omitted",
+                    "Only list raw data tables"
+                ],
+                "answer": 1,
+                "explanation": "An executive summary should distill the key findings and their implications so busy readers can grasp them quickly."
+            },
+            {
+                "q": "Active listening in stakeholder meetings mainly helps to:",
+                "options": [
+                    "End meetings faster",
+                    "Accurately understand requirements and concerns",
+                    "Avoid taking notes",
+                    "Reduce attendance"
+                ],
+                "answer": 1,
+                "explanation": "Active listening helps ensure requirements and concerns are understood accurately rather than assumed or missed."
+            },
+            {
+                "q": "A good data visualization for a policy audience should:",
+                "options": [
+                    "Maximize decorative elements",
+                    "Prioritize clarity over decoration",
+                    "Hide the source data",
+                    "Use as many colors as possible"
+                ],
+                "answer": 1,
+                "explanation": "Good visualizations for a policy audience prioritize clarity so the message is understood at a glance, not decoration."
+            }
+        ]
+    },
+    "exams": [
+        {
+            "id": "e-sql",
+            "title": "SQL Exam",
+            "competency": "SQL",
+            "questions": 12,
+            "minutes": 30,
+            "difficulty": "Advanced"
+        },
+        {
+            "id": "e-dq",
+            "title": "Data Quality Exam",
+            "competency": "Data Quality Frameworks",
+            "questions": 12,
+            "minutes": 30,
+            "difficulty": "Advanced"
+        },
+        {
+            "id": "e-sd",
+            "title": "Survey Design Exam",
+            "competency": "Survey Design",
+            "questions": 12,
+            "minutes": 30,
+            "difficulty": "Advanced"
+        },
+        {
+            "id": "e-dg",
+            "title": "Digital Governance Exam",
+            "competency": "Cybersecurity",
+            "questions": 12,
+            "minutes": 30,
+            "difficulty": "Advanced"
+        },
+        {
+            "id": "e-comm",
+            "title": "Communication Exam",
+            "competency": "Communication",
+            "questions": 12,
+            "minutes": 30,
+            "difficulty": "Advanced"
+        }
+    ],
+    "examQuestionBank": {
+        "e-sql": [
+            {
+                "q": "Which clause filters individual rows before grouping?",
+                "options": [
+                    "WHERE",
+                    "HAVING",
+                    "GROUP BY",
+                    "ORDER BY"
+                ],
+                "answer": 0,
+                "explanation": "WHERE filters individual rows before any grouping or aggregation takes place, unlike HAVING which filters groups."
+            },
+            {
+                "q": "Which JOIN returns only rows that match in both tables?",
+                "options": [
+                    "INNER JOIN",
+                    "LEFT JOIN",
+                    "RIGHT JOIN",
+                    "FULL OUTER JOIN"
+                ],
+                "answer": 0,
+                "explanation": "An INNER JOIN returns only the rows where the join condition is satisfied in both tables."
+            },
+            {
+                "q": "Which keyword removes duplicate rows from a result set?",
+                "options": [
+                    "DISTINCT",
+                    "UNIQUE",
+                    "FILTER",
+                    "GROUP"
+                ],
+                "answer": 0,
+                "explanation": "DISTINCT removes duplicate rows from a query's result set, leaving only unique combinations."
+            },
+            {
+                "q": "What is the purpose of a primary key?",
+                "options": [
+                    "Uniquely identify each row",
+                    "Store large text",
+                    "Compress data",
+                    "Encrypt data"
+                ],
+                "answer": 0,
+                "explanation": "A primary key uniquely identifies each row in a table, ensuring no two rows share the same identifying value."
+            },
+            {
+                "q": "Which clause is used to sort query results?",
+                "options": [
+                    "WHERE",
+                    "HAVING",
+                    "ORDER BY",
+                    "GROUP BY"
+                ],
+                "answer": 2,
+                "explanation": "ORDER BY arranges the rows of a query result in ascending or descending order based on specified columns."
+            },
+            {
+                "q": "What does SQL stand for?",
+                "options": [
+                    "Structured Query Language",
+                    "Simple Query Logic",
+                    "Sequential Query Language",
+                    "Structured Question Language"
+                ],
+                "answer": 0,
+                "explanation": "SQL stands for Structured Query Language, the standard language for managing and querying relational databases."
+            },
+            {
+                "q": "Which function returns the average of a numeric column?",
+                "options": [
+                    "AVG()",
+                    "MEAN()",
+                    "SUM()",
+                    "MID()"
+                ],
+                "answer": 0,
+                "explanation": "AVG() computes the arithmetic mean of the non-null numeric values in a column."
+            },
+            {
+                "q": "A foreign key is used to:",
+                "options": [
+                    "Link records between tables",
+                    "Encrypt a column",
+                    "Speed up inserts",
+                    "Rename a table"
+                ],
+                "answer": 0,
+                "explanation": "A foreign key links records between tables by referencing the primary key of another table, enforcing relationships."
+            },
+            {
+                "q": "Which statement is used to add new rows to a table?",
+                "options": [
+                    "UPDATE",
+                    "INSERT",
+                    "ALTER",
+                    "CREATE"
+                ],
+                "answer": 1,
+                "explanation": "INSERT is the SQL statement used to add new rows of data into a table."
+            },
+            {
+                "q": "What does normalization primarily reduce?",
+                "options": [
+                    "Query speed",
+                    "Data redundancy",
+                    "Storage cost only",
+                    "Number of tables"
+                ],
+                "answer": 1,
+                "explanation": "Normalization organizes data to reduce redundancy, so the same fact isn't stored in multiple places inconsistently."
+            },
+            {
+                "q": "Which clause limits the number of rows returned?",
+                "options": [
+                    "WHERE",
+                    "LIMIT",
+                    "TOP only",
+                    "HAVING"
+                ],
+                "answer": 1,
+                "explanation": "LIMIT restricts a query's result set to a specified maximum number of rows."
+            },
+            {
+                "q": "A transaction that is atomic means:",
+                "options": [
+                    "It can be partially applied",
+                    "It completes fully or not at all",
+                    "It runs in parallel",
+                    "It skips validation"
+                ],
+                "answer": 1,
+                "explanation": "Atomicity means a transaction is treated as a single unit: it either completes fully or has no effect at all."
+            }
+        ],
+        "e-dq": [
+            {
+                "q": "Which of these is a core dimension of data quality?",
+                "options": [
+                    "Consistency",
+                    "Popularity",
+                    "Novelty",
+                    "Aesthetics"
+                ],
+                "answer": 0,
+                "explanation": "Consistency is one of the recognized data quality dimensions, alongside accuracy, completeness, and timeliness."
+            },
+            {
+                "q": "Duplicate records in a dataset primarily harm which dimension?",
+                "options": [
+                    "Timeliness",
+                    "Uniqueness",
+                    "Currency",
+                    "Relevance"
+                ],
+                "answer": 1,
+                "explanation": "Duplicate records mean the same real-world entity is represented more than once, which directly harms uniqueness."
+            },
+            {
+                "q": "What is the first step in a typical data validation pipeline?",
+                "options": [
+                    "Archiving",
+                    "Schema/format checks",
+                    "Publishing",
+                    "Visualization"
+                ],
+                "answer": 1,
+                "explanation": "Schema and format checks are typically run first to catch structural issues before deeper checks or publishing happen."
+            },
+            {
+                "q": "Data that is outdated primarily fails which dimension?",
+                "options": [
+                    "Accuracy",
+                    "Timeliness",
+                    "Completeness",
+                    "Uniqueness"
+                ],
+                "answer": 1,
+                "explanation": "Outdated data fails the timeliness dimension, since it no longer reflects the current state of the real world."
+            },
+            {
+                "q": "Missing values in a required field mainly affect:",
+                "options": [
+                    "Completeness",
+                    "Popularity",
+                    "Novelty",
+                    "Aesthetics"
+                ],
+                "answer": 0,
+                "explanation": "Missing values in a required field are a completeness problem, since not all necessary data is present."
+            },
+            {
+                "q": "A data quality dashboard is mainly used to:",
+                "options": [
+                    "Hide errors",
+                    "Monitor and track data health metrics",
+                    "Delete bad records automatically",
+                    "Replace validation rules"
+                ],
+                "answer": 1,
+                "explanation": "A data quality dashboard tracks and monitors data health metrics so issues can be spotted and addressed over time."
+            },
+            {
+                "q": "Which technique helps detect duplicate records?",
+                "options": [
+                    "Deduplication matching",
+                    "Random sampling only",
+                    "Data encryption",
+                    "Data compression"
+                ],
+                "answer": 0,
+                "explanation": "Deduplication matching compares records to identify and flag likely duplicates within a dataset."
+            },
+            {
+                "q": "Referential integrity ensures:",
+                "options": [
+                    "Foreign key values match existing primary keys",
+                    "Faster queries",
+                    "Smaller file sizes",
+                    "Better formatting"
+                ],
+                "answer": 0,
+                "explanation": "Referential integrity ensures that foreign key values always correspond to an existing primary key value."
+            },
+            {
+                "q": "A validation rule that rejects a negative age value is checking for:",
+                "options": [
+                    "Timeliness",
+                    "Validity",
+                    "Popularity",
+                    "Consistency"
+                ],
+                "answer": 1,
+                "explanation": "Rejecting an impossible value like a negative age is a validity check, ensuring data conforms to expected rules."
+            },
+            {
+                "q": "Data profiling is typically done to:",
+                "options": [
+                    "Understand structure and content of data",
+                    "Encrypt sensitive fields",
+                    "Publish reports",
+                    "Train models only"
+                ],
+                "answer": 0,
+                "explanation": "Data profiling examines a dataset to understand its structure, content, and quality before further use."
+            },
+            {
+                "q": "Which of these best describes data completeness?",
+                "options": [
+                    "All required data is present",
+                    "Data is stored securely",
+                    "Data is visually appealing",
+                    "Data is fast to query"
+                ],
+                "answer": 0,
+                "explanation": "Completeness means all the data that is required to be present actually is present, with no missing required values."
+            },
+            {
+                "q": "An audit trail for data changes primarily supports:",
+                "options": [
+                    "Accountability and traceability",
+                    "Faster processing",
+                    "Better visualization",
+                    "Lower storage cost"
+                ],
+                "answer": 0,
+                "explanation": "An audit trail records who changed what and when, supporting accountability and traceability of data changes."
+            }
+        ],
+        "e-sd": [
+            {
+                "q": "Stratified sampling primarily helps ensure:",
+                "options": [
+                    "Lower cost only",
+                    "Representation across subgroups",
+                    "Faster data entry",
+                    "Higher response rate always"
+                ],
+                "answer": 1,
+                "explanation": "Stratified sampling divides the population into subgroups and samples from each, ensuring those subgroups are represented."
+            },
+            {
+                "q": "A pilot survey is mainly used to:",
+                "options": [
+                    "Publish final results",
+                    "Test and refine the questionnaire",
+                    "Replace the main survey",
+                    "Reduce sample size"
+                ],
+                "answer": 1,
+                "explanation": "A pilot survey is a small trial run used to test and refine the questionnaire before the full survey is fielded."
+            },
+            {
+                "q": "Non-response bias arises when:",
+                "options": [
+                    "Everyone responds identically",
+                    "Non-respondents differ systematically from respondents",
+                    "The sample is too large",
+                    "Questions are too short"
+                ],
+                "answer": 1,
+                "explanation": "Non-response bias occurs when people who don't respond differ in meaningful ways from those who do, skewing results."
+            },
+            {
+                "q": "Leading questions in a survey mainly risk:",
+                "options": [
+                    "Improving accuracy",
+                    "Introducing response bias",
+                    "Reducing survey length",
+                    "Increasing sample size"
+                ],
+                "answer": 1,
+                "explanation": "Leading questions nudge respondents toward a particular answer, introducing response bias into the results."
+            },
+            {
+                "q": "A Likert scale is typically used to measure:",
+                "options": [
+                    "Exact numeric quantities",
+                    "Attitudes or opinions on a scale",
+                    "Geographic location",
+                    "Random sampling error"
+                ],
+                "answer": 1,
+                "explanation": "A Likert scale captures attitudes or opinions by asking respondents to rate agreement along a fixed scale."
+            },
+            {
+                "q": "Random sampling is important mainly because it:",
+                "options": [
+                    "Guarantees zero errors",
+                    "Gives every unit a known chance of selection",
+                    "Reduces survey cost to zero",
+                    "Removes the need for a pilot"
+                ],
+                "answer": 1,
+                "explanation": "Random sampling gives every unit in the population a known, non-zero chance of being selected, supporting valid inference."
+            },
+            {
+                "q": "Closed-ended questions are useful mainly for:",
+                "options": [
+                    "Easier quantitative analysis",
+                    "Capturing rich open narratives",
+                    "Avoiding all bias",
+                    "Increasing survey length"
+                ],
+                "answer": 0,
+                "explanation": "Closed-ended questions offer fixed response options, which makes the answers easier to tabulate and analyze quantitatively."
+            },
+            {
+                "q": "A sampling frame refers to:",
+                "options": [
+                    "The list from which a sample is drawn",
+                    "The survey deadline",
+                    "The final report format",
+                    "The margin of error"
+                ],
+                "answer": 0,
+                "explanation": "A sampling frame is the list or source from which the actual sample of units is drawn."
+            },
+            {
+                "q": "Margin of error mainly reflects:",
+                "options": [
+                    "The survey budget",
+                    "Uncertainty in sample-based estimates",
+                    "Number of enumerators",
+                    "Length of the questionnaire"
+                ],
+                "answer": 1,
+                "explanation": "Margin of error reflects the uncertainty inherent in estimating a population value from a sample."
+            },
+            {
+                "q": "Question order effects can influence:",
+                "options": [
+                    "Only the introduction section",
+                    "How respondents answer later questions",
+                    "The sampling frame",
+                    "The data storage format"
+                ],
+                "answer": 1,
+                "explanation": "The order in which questions are asked can influence how respondents interpret and answer later questions."
+            },
+            {
+                "q": "A well-designed questionnaire generally avoids:",
+                "options": [
+                    "Double-barreled questions",
+                    "Clear instructions",
+                    "Consistent scales",
+                    "Pilot testing"
+                ],
+                "answer": 0,
+                "explanation": "Well-designed questionnaires avoid double-barreled questions, which ask about two things at once and confuse respondents."
+            },
+            {
+                "q": "Response rate is defined as:",
+                "options": [
+                    "Number of eligible respondents who completed the survey out of those sampled",
+                    "Total budget spent",
+                    "Number of questions asked",
+                    "Time taken to design the survey"
+                ],
+                "answer": 0,
+                "explanation": "Response rate is the proportion of sampled, eligible respondents who actually completed the survey."
+            }
+        ],
+        "e-dg": [
+            {
+                "q": "Which practice reduces risk when handling sensitive administrative data?",
+                "options": [
+                    "Sharing credentials for convenience",
+                    "Role-based access control",
+                    "Disabling audit logs",
+                    "Using default passwords"
+                ],
+                "answer": 1,
+                "explanation": "Role-based access control limits who can view or change sensitive data to only those who need it for their role."
+            },
+            {
+                "q": "A digital signature primarily provides:",
+                "options": [
+                    "Faster upload speed",
+                    "Authenticity and integrity of a document",
+                    "Free storage",
+                    "Automatic translation"
+                ],
+                "answer": 1,
+                "explanation": "A digital signature cryptographically confirms who created a document and that it hasn't been altered since signing."
+            },
+            {
+                "q": "Phishing attempts most often arrive via:",
+                "options": [
+                    "Official department circulars",
+                    "Unexpected emails or links",
+                    "Printed memos",
+                    "In-person meetings only"
+                ],
+                "answer": 1,
+                "explanation": "Phishing most commonly arrives through unexpected emails or links designed to trick the recipient into acting on them."
+            },
+            {
+                "q": "Two-factor authentication mainly improves:",
+                "options": [
+                    "Login speed",
+                    "Account security by requiring a second verification step",
+                    "Data storage capacity",
+                    "Network bandwidth"
+                ],
+                "answer": 1,
+                "explanation": "Two-factor authentication improves account security by requiring a second, independent verification step at login."
+            },
+            {
+                "q": "A strong password policy typically requires:",
+                "options": [
+                    "Reusing the same password everywhere",
+                    "A mix of length and complexity",
+                    "Sharing passwords with colleagues",
+                    "Writing passwords on sticky notes"
+                ],
+                "answer": 1,
+                "explanation": "A strong password policy typically requires a mix of length and complexity to make passwords harder to guess or crack."
+            },
+            {
+                "q": "Encryption at rest mainly protects:",
+                "options": [
+                    "Data while it is being typed",
+                    "Stored data from unauthorized access",
+                    "Network speed",
+                    "Screen brightness"
+                ],
+                "answer": 1,
+                "explanation": "Encryption at rest protects stored data from being read by anyone who gains unauthorized access to the storage itself."
+            },
+            {
+                "q": "A firewall's main purpose is to:",
+                "options": [
+                    "Compress files",
+                    "Monitor and control network traffic",
+                    "Translate documents",
+                    "Back up data automatically"
+                ],
+                "answer": 1,
+                "explanation": "A firewall monitors and controls network traffic, allowing or blocking connections based on defined security rules."
+            },
+            {
+                "q": "Regular software updates help primarily by:",
+                "options": [
+                    "Patching known security vulnerabilities",
+                    "Changing the user interface",
+                    "Increasing file size",
+                    "Slowing down the system"
+                ],
+                "answer": 0,
+                "explanation": "Regular updates primarily patch known security vulnerabilities before they can be exploited."
+            },
+            {
+                "q": "An audit log is useful mainly for:",
+                "options": [
+                    "Improving screen resolution",
+                    "Tracking who accessed or changed a system",
+                    "Reducing file size",
+                    "Automating translations"
+                ],
+                "answer": 1,
+                "explanation": "An audit log records system access and changes, making it possible to trace who did what and when."
+            },
+            {
+                "q": "The principle of least privilege means:",
+                "options": [
+                    "Giving users only the access they need to do their job",
+                    "Giving all users admin rights",
+                    "Removing all access controls",
+                    "Sharing one account across a team"
+                ],
+                "answer": 0,
+                "explanation": "Least privilege means giving users only the access rights they need to perform their job, and nothing more."
+            },
+            {
+                "q": "A data breach should typically be:",
+                "options": [
+                    "Ignored if small",
+                    "Reported through the appropriate incident process",
+                    "Kept confidential from IT",
+                    "Fixed only after public disclosure"
+                ],
+                "answer": 1,
+                "explanation": "A data breach should be reported through the organization's appropriate incident response process without delay."
+            },
+            {
+                "q": "Public Wi-Fi networks are generally considered:",
+                "options": [
+                    "Always fully secure",
+                    "Higher risk for sensitive transactions",
+                    "Faster than private networks",
+                    "Immune to interception"
+                ],
+                "answer": 1,
+                "explanation": "Public Wi-Fi networks are generally considered higher risk for sensitive transactions since traffic can be intercepted."
+            }
+        ],
+        "e-comm": [
+            {
+                "q": "In a report for policymakers, the executive summary should:",
+                "options": [
+                    "Contain every technical detail",
+                    "Highlight key findings and implications concisely",
+                    "Be omitted",
+                    "Only list raw data tables"
+                ],
+                "answer": 1,
+                "explanation": "An executive summary should distill the key findings and their implications so busy readers can grasp them quickly."
+            },
+            {
+                "q": "Active listening in stakeholder meetings mainly helps to:",
+                "options": [
+                    "End meetings faster",
+                    "Accurately understand requirements and concerns",
+                    "Avoid taking notes",
+                    "Reduce attendance"
+                ],
+                "answer": 1,
+                "explanation": "Active listening helps ensure requirements and concerns are understood accurately rather than assumed or missed."
+            },
+            {
+                "q": "A good data visualization for a policy audience should:",
+                "options": [
+                    "Maximize decorative elements",
+                    "Prioritize clarity over decoration",
+                    "Hide the source data",
+                    "Use as many colors as possible"
+                ],
+                "answer": 1,
+                "explanation": "Good visualizations for a policy audience prioritize clarity so the message is understood at a glance, not decoration."
+            },
+            {
+                "q": "When presenting to a non-technical audience, jargon should be:",
+                "options": [
+                    "Used extensively to sound authoritative",
+                    "Minimized or clearly explained",
+                    "Left untranslated",
+                    "Replaced with acronyms only"
+                ],
+                "answer": 1,
+                "explanation": "For a non-technical audience, jargon should be minimized or clearly explained so the message remains accessible."
+            },
+            {
+                "q": "Effective written communication in government reports emphasizes:",
+                "options": [
+                    "Long, complex sentences",
+                    "Clarity and conciseness",
+                    "Maximum length",
+                    "Passive voice throughout"
+                ],
+                "answer": 1,
+                "explanation": "Effective written communication emphasizes clarity and conciseness so readers can act on the information quickly."
+            },
+            {
+                "q": "Feedback in a team setting is most useful when it is:",
+                "options": [
+                    "Vague and general",
+                    "Specific and actionable",
+                    "Delivered only in writing",
+                    "Given rarely"
+                ],
+                "answer": 1,
+                "explanation": "Feedback is most useful when it is specific and actionable, giving the recipient a clear sense of what to change."
+            },
+            {
+                "q": "In cross-departmental communication, the primary goal is usually to:",
+                "options": [
+                    "Compete for resources",
+                    "Align on shared objectives and information",
+                    "Avoid sharing data",
+                    "Limit meetings to one department"
+                ],
+                "answer": 1,
+                "explanation": "Cross-departmental communication is primarily aimed at aligning teams on shared objectives and information."
+            },
+            {
+                "q": "A meeting agenda mainly helps by:",
+                "options": [
+                    "Making meetings longer",
+                    "Keeping discussion focused and on track",
+                    "Replacing the need for minutes",
+                    "Reducing attendance"
+                ],
+                "answer": 1,
+                "explanation": "A meeting agenda keeps discussion focused and on track by setting out the topics to be covered in advance."
+            },
+            {
+                "q": "When communicating bad news to stakeholders, it is best to be:",
+                "options": [
+                    "Vague and delayed",
+                    "Timely, clear, and honest",
+                    "Silent until asked",
+                    "Overly technical"
+                ],
+                "answer": 1,
+                "explanation": "Bad news is best delivered in a timely, clear, and honest way rather than delayed or softened into vagueness."
+            },
+            {
+                "q": "Nonverbal cues in a meeting mainly help convey:",
+                "options": [
+                    "Nothing important",
+                    "Tone and engagement alongside spoken words",
+                    "Only the agenda",
+                    "Technical data"
+                ],
+                "answer": 1,
+                "explanation": "Nonverbal cues convey tone and engagement alongside what is said, adding context that words alone may miss."
+            },
+            {
+                "q": "A well-structured email typically has:",
+                "options": [
+                    "No subject line",
+                    "A clear subject line and concise body",
+                    "Only attachments",
+                    "Excessive formatting"
+                ],
+                "answer": 1,
+                "explanation": "A well-structured email has a clear subject line and a concise body so the reader immediately understands its purpose."
+            },
+            {
+                "q": "Summarizing key decisions at the end of a meeting mainly helps:",
+                "options": [
+                    "Confirm shared understanding and next steps",
+                    "End the meeting early",
+                    "Avoid follow-up",
+                    "Replace the agenda"
+                ],
+                "answer": 0,
+                "explanation": "Summarizing decisions at the end confirms shared understanding among attendees and clarifies next steps."
+            }
+        ]
+    }
+}

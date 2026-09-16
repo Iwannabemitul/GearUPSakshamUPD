@@ -1,0 +1,405 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Saksham Skill Intelligence — Govt-Modern theme.
+ *
+ * Palette: Ashoka navy + warm off-white paper + chakra teal accent.
+ * No indigo, no pure black/white. Inspired by polished NIC/iGOT portals
+ * but with cleaner spacing, fewer borders, and stronger typography.
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-inter), Georgia, serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Saksham semantic palette — exposed as Tailwind utilities */
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-panel: var(--panel);
+  --color-line: var(--line);
+  --color-navy: var(--navy);
+  --color-navy-soft: var(--navy-soft);
+  --color-teal: var(--teal);
+  --color-teal-soft: var(--teal-soft);
+  --color-critical: var(--critical);
+  --color-critical-soft: var(--critical-soft);
+  --color-high: var(--high);
+  --color-high-soft: var(--high-soft);
+  --color-medium: var(--medium);
+  --color-medium-soft: var(--medium-soft);
+  --color-good: var(--good);
+  --color-good-soft: var(--good-soft);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Ashoka navy + warm paper */
+  --background: oklch(0.97 0.012 80);          /* warm off-white */
+  --foreground: oklch(0.22 0.03 240);          /* deep navy ink */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.03 240);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.03 240);
+  --primary: oklch(0.31 0.06 250);             /* ashoka navy */
+  --primary-foreground: oklch(0.98 0.01 80);
+  --secondary: oklch(0.94 0.015 80);
+  --secondary-foreground: oklch(0.31 0.06 250);
+  --muted: oklch(0.94 0.015 80);
+  --muted-foreground: oklch(0.5 0.02 240);
+  --accent: oklch(0.62 0.1 200);                /* chakra teal */
+  --accent-foreground: oklch(0.99 0.01 80);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.9 0.012 80);
+  --input: oklch(0.9 0.012 80);
+  --ring: oklch(0.62 0.1 200);
+  --chart-1: oklch(0.55 0.13 200);              /* teal */
+  --chart-2: oklch(0.45 0.15 145);              /* good green */
+  --chart-3: oklch(0.65 0.16 60);               /* high amber */
+  --chart-4: oklch(0.55 0.18 25);               /* critical red */
+  --chart-5: oklch(0.5 0.05 250);               /* navy */
+  --sidebar: oklch(0.985 0.01 80);
+  --sidebar-foreground: oklch(0.22 0.03 240);
+  --sidebar-primary: oklch(0.31 0.06 250);
+  --sidebar-primary-foreground: oklch(0.98 0.01 80);
+  --sidebar-accent: oklch(0.94 0.018 80);
+  --sidebar-accent-foreground: oklch(0.31 0.06 250);
+  --sidebar-border: oklch(0.9 0.012 80);
+  --sidebar-ring: oklch(0.62 0.1 200);
+
+  /* Saksham semantic palette */
+  --ink: #1C2430;
+  --ink-soft: #4B5563;
+  --paper: #F5F3EE;           /* warm off-white */
+  --panel: #FFFFFF;
+  --line: #E5E2D8;
+  --navy: #16232F;
+  --navy-soft: #223142;
+  --teal: #0E7C7B;            /* chakra teal */
+  --teal-soft: #C9E4E3;
+  --critical: #A63D2F;
+  --critical-soft: #F6E7E4;
+  --high: #C97A2C;
+  --high-soft: #FAEEE0;
+  --medium: #9C8B3C;
+  --medium-soft: #F5F1DF;
+  --good: #2F6F4F;
+  --good-soft: #E6F0EA;
+}
+
+.dark {
+  --background: oklch(0.16 0.025 240);
+  --foreground: oklch(0.96 0.01 80);
+  --card: oklch(0.21 0.03 240);
+  --card-foreground: oklch(0.96 0.01 80);
+  --popover: oklch(0.21 0.03 240);
+  --popover-foreground: oklch(0.96 0.01 80);
+  --primary: oklch(0.75 0.1 200);
+  --primary-foreground: oklch(0.18 0.03 240);
+  --secondary: oklch(0.27 0.03 240);
+  --secondary-foreground: oklch(0.96 0.01 80);
+  --muted: oklch(0.27 0.03 240);
+  --muted-foreground: oklch(0.7 0.02 80);
+  --accent: oklch(0.7 0.13 200);
+  --accent-foreground: oklch(0.18 0.03 240);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.7 0.13 200);
+  --chart-1: oklch(0.7 0.13 200);
+  --chart-2: oklch(0.7 0.15 145);
+  --chart-3: oklch(0.75 0.16 60);
+  --chart-4: oklch(0.7 0.18 25);
+  --chart-5: oklch(0.7 0.05 250);
+  --sidebar: oklch(0.21 0.03 240);
+  --sidebar-foreground: oklch(0.96 0.01 80);
+  --sidebar-primary: oklch(0.7 0.13 200);
+  --sidebar-primary-foreground: oklch(0.18 0.03 240);
+  --sidebar-accent: oklch(0.27 0.03 240);
+  --sidebar-accent-foreground: oklch(0.96 0.01 80);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.7 0.13 200);
+
+  --ink: #E8E5DC;
+  --ink-soft: #B8B5AC;
+  --paper: #0F1822;
+  --panel: #16232F;
+  --line: #2A3A4A;
+  --navy: #0A1218;
+  --navy-soft: #1A2838;
+  --teal: #4EC0BF;
+  --teal-soft: #1F3A3A;
+  --critical: #E07060;
+  --critical-soft: #3A1E1A;
+  --high: #E8A050;
+  --high-soft: #3A2818;
+  --medium: #D0C060;
+  --medium-soft: #2E2A18;
+  --good: #5DB080;
+  --good-soft: #1A2E22;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  }
+  /* Body uses the warm paper background instead of pure white — feels closer to
+     a printed government document and softer on the eye. */
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Reusable utility classes used across the Saksham shell. */
+@layer components {
+  .saksham-card {
+    @apply bg-card rounded-xl border border-border/70 shadow-sm;
+  }
+  .saksham-pill {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+  .saksham-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg
+           bg-[var(--teal)] text-white font-medium
+           hover:opacity-90 active:opacity-95
+           disabled:opacity-50 disabled:pointer-events-none
+           transition;
+  }
+  .saksham-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg
+           bg-white text-[var(--ink)] border border-[var(--line)]
+           hover:bg-[var(--paper)] hover:border-[var(--teal)]
+           disabled:opacity-50 disabled:pointer-events-none
+           transition;
+  }
+  .saksham-link {
+    @apply text-[var(--teal)] hover:underline cursor-pointer font-medium;
+  }
+  .saksham-page-title {
+    @apply text-2xl font-semibold text-[var(--navy)];
+  }
+  .saksham-page-subtitle {
+    @apply text-sm text-[var(--ink-soft)] mt-1;
+  }
+  .saksham-section-title {
+    @apply text-base font-semibold text-[var(--ink)] mb-3;
+  }
+  .saksham-input {
+    @apply w-full px-3 py-2 rounded-lg border border-[var(--line)]
+           bg-white text-[var(--ink)] placeholder:text-[var(--ink-soft)]
+           focus:outline-none focus:border-[var(--teal)] focus:ring-2 focus:ring-[var(--teal)]/15
+           transition;
+  }
+}
+
+/* Custom scrollbar for chat / list panels */
+.scroll-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 3px;
+}
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Markdown-ish answer rendering for AI replies — preserve newlines, no
+   overflow-x. */
+.ai-answer {
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.55;
+}
+
+/* Workstream A — realtime slide-in for newly pushed assignments/feed items.
+   Disabled for users who prefer reduced motion. */
+@keyframes saksham-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.saksham-slide-in {
+  animation: saksham-slide-in 0.45s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .saksham-slide-in {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   Workstream B — Accessibility (WCAG 2.1 AA)
+   ============================================================ */
+
+/* Visible focus ring for every interactive element. */
+:focus-visible {
+  outline: 3px solid var(--focus-ring, #0E7C7B);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.high-contrast :focus-visible {
+  outline: 3px solid var(--focus-ring, #0000CC);
+  outline-offset: 2px;
+}
+
+/* Skip-to-content link — first focusable element, visible on focus. */
+.saksham-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--navy);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 0.5rem 0;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.saksham-skip-link:focus {
+  left: 0;
+}
+
+/* High-contrast mode: pure black/white with blue + yellow accents, thick
+   borders. Overrides the semantic palette so every var() consumer follows. */
+.high-contrast {
+  --ink: #000000;
+  --ink-soft: #1A1A1A;
+  --paper: #FFFFFF;
+  --panel: #FFFFFF;
+  --line: #000000;
+  --navy: #000000;
+  --navy-soft: #1A1A1A;
+  --teal: #0000CC;
+  --teal-soft: #E8ECFF;
+  --critical: #A60000;
+  --critical-soft: #FFE5E5;
+  --high: #6B4400;
+  --high-soft: #FFF0CC;
+  --medium: #4D4400;
+  --medium-soft: #FFF8D6;
+  --good: #00552E;
+  --good-soft: #DCF2E4;
+  --focus-ring: #0000CC;
+
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --card: #FFFFFF;
+  --card-foreground: #000000;
+  --popover: #FFFFFF;
+  --popover-foreground: #000000;
+  --primary: #0000CC;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F0F0F0;
+  --secondary-foreground: #000000;
+  --muted: #F0F0F0;
+  --muted-foreground: #1A1A1A;
+  --accent: #0000CC;
+  --accent-foreground: #FFFFFF;
+  --destructive: #A60000;
+  --border: #000000;
+  --input: #000000;
+  --ring: #0000CC;
+}
+.high-contrast *,
+.high-contrast *::before,
+.high-contrast *::after {
+  border-color: #000000 !important;
+}
+.high-contrast button,
+.high-contrast [role="button"],
+.high-contrast a,
+.high-contrast input,
+.high-contrast select,
+.high-contrast textarea {
+  border-width: 2px;
+}
+.high-contrast .saksham-pill {
+  border: 2px solid currentColor;
+}
+
+/* Font-size control: A-/A/A+ scale the root em so every rem-based text and
+   spacing token follows. Steps map to 14 / 16 / 18 / 20 / 22 px. */
+html[data-font-step="0"] { font-size: 87.5%; }
+html[data-font-step="1"] { font-size: 100%; }
+html[data-font-step="2"] { font-size: 112.5%; }
+html[data-font-step="3"] { font-size: 125%; }
+html[data-font-step="4"] { font-size: 137.5%; }
+
+/* Reduced motion: when the OS requests it, no animations or transitions
+   play anywhere (AI typing dots, proctor pulse, slide-ins, chart hovers). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Radix exit-animation guard: `data-[state=closed]:animate-out` can leave
+   dialogs/dropdowns mounted forever when the exit animation's `animationend`
+   never fires (broken exit keyframes in the tw-animate-css + Tailwind 4
+   setup). With animations disabled on closed-state elements Radix Presence
+   unmounts them immediately. Entry animations are unaffected. */
+[data-state="closed"] {
+  animation: none !important;
+  transition: none !important;
+}

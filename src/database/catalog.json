@@ -1,0 +1,370 @@
+{
+    "activities": [
+        {
+            "name": "Design statistical surveys",
+            "competencies": [
+                "Survey Design",
+                "Sampling"
+            ]
+        },
+        {
+            "name": "Analyse government datasets",
+            "competencies": [
+                "SQL",
+                "Python",
+                "Data Visualization"
+            ]
+        },
+        {
+            "name": "Prepare statistical reports",
+            "competencies": [
+                "Data Visualization",
+                "Communication"
+            ]
+        },
+        {
+            "name": "Validate data quality",
+            "competencies": [
+                "Data Quality Frameworks"
+            ]
+        },
+        {
+            "name": "Generate statistical indicators",
+            "competencies": [
+                "Survey Design",
+                "SQL"
+            ]
+        },
+        {
+            "name": "Support evidence-based decision making",
+            "competencies": [
+                "Communication",
+                "Project Management"
+            ]
+        }
+    ],
+    "competencyCategories": {
+        "Domain Competencies": [
+            "Survey Design",
+            "Sampling",
+            "Data Quality Frameworks"
+        ],
+        "Technical / Functional": [
+            "SQL",
+            "Python",
+            "Data Visualization",
+            "GIS"
+        ],
+        "Digital Governance": [
+            "Cybersecurity",
+            "Data Privacy"
+        ],
+        "Behavioural / Managerial": [
+            "Communication",
+            "Project Management"
+        ]
+    },
+    "impactText": {
+        "SQL": "Difficulty efficiently querying and joining large administrative datasets, slowing report turnaround.",
+        "Data Quality Frameworks": "Risk of undetected errors in published statistics, weakening confidence in departmental output.",
+        "Survey Design": "Limits ability to design methodologically sound surveys for new indicator collection.",
+        "Data Visualization": "Reports rely on basic tables rather than visuals that communicate findings clearly to decision-makers.",
+        "Python": "Manual analysis workflows take longer than they would with scripted, repeatable processing.",
+        "GIS": "Cannot produce spatial breakdowns of statistical indicators without support from other teams.",
+        "Cybersecurity": "Increased exposure when handling sensitive administrative data.",
+        "Project Management": "Coordination across multi-stakeholder survey rounds takes longer and is harder to track."
+    },
+    "courses": [
+        {
+            "id": "c1",
+            "title": "SQL Fundamentals",
+            "provider": "iGOT",
+            "competency": "SQL",
+            "duration": "6 hrs",
+            "mode": "Self-paced",
+            "difficulty": "Basic"
+        },
+        {
+            "id": "c2",
+            "title": "Advanced SQL for Government Data",
+            "provider": "iGOT",
+            "competency": "SQL",
+            "duration": "10 hrs",
+            "mode": "Self-paced",
+            "difficulty": "Advanced"
+        },
+        {
+            "id": "c3",
+            "title": "Data Quality & Validation Frameworks",
+            "provider": "NSSTA",
+            "competency": "Data Quality Frameworks",
+            "duration": "3 days",
+            "mode": "Classroom",
+            "difficulty": "Intermediate"
+        },
+        {
+            "id": "c4",
+            "title": "Effective Data Visualization for Policy",
+            "provider": "ATI Punjab",
+            "competency": "Data Visualization",
+            "duration": "2 days",
+            "mode": "Blended",
+            "difficulty": "Intermediate"
+        },
+        {
+            "id": "c5",
+            "title": "Modern Survey Design Methods",
+            "provider": "NSSTA",
+            "competency": "Survey Design",
+            "duration": "4 days",
+            "mode": "Classroom",
+            "difficulty": "Advanced"
+        },
+        {
+            "id": "c6",
+            "title": "Python for Data Analysis",
+            "provider": "iGOT",
+            "competency": "Python",
+            "duration": "12 hrs",
+            "mode": "Self-paced",
+            "difficulty": "Intermediate"
+        },
+        {
+            "id": "c7",
+            "title": "Digital Safety Essentials",
+            "provider": "iGOT",
+            "competency": "Cybersecurity",
+            "duration": "3 hrs",
+            "mode": "Self-paced",
+            "difficulty": "Basic"
+        },
+        {
+            "id": "c8",
+            "title": "Introduction to Project Management",
+            "provider": "iGOT",
+            "competency": "Project Management",
+            "duration": "8 hrs",
+            "mode": "Self-paced",
+            "difficulty": "Basic"
+        },
+        {
+            "id": "c9",
+            "title": "Government Data Analytics Capstone Project",
+            "provider": "ATI Punjab",
+            "competency": "SQL",
+            "duration": "5 days",
+            "mode": "Blended",
+            "difficulty": "Advanced"
+        }
+    ],
+    "learningPathSql": [
+        {
+            "phase": 1,
+            "title": "SQL Fundamentals",
+            "status": "Completed",
+            "duration": "6 hrs",
+            "difficulty": "Basic",
+            "source": "iGOT",
+            "expected": "Basic → Intermediate"
+        },
+        {
+            "phase": 2,
+            "title": "Advanced SQL for Government Data",
+            "status": "In Progress",
+            "duration": "10 hrs",
+            "difficulty": "Advanced",
+            "source": "iGOT",
+            "expected": "Intermediate → Advanced"
+        },
+        {
+            "phase": 3,
+            "title": "Data Quality & Validation Frameworks",
+            "status": "Recommended",
+            "duration": "3 days",
+            "difficulty": "Intermediate",
+            "source": "NSSTA",
+            "expected": "Supports data integrity in SQL output"
+        },
+        {
+            "phase": 4,
+            "title": "Government Data Analytics Capstone Project",
+            "status": "Upcoming",
+            "duration": "5 days",
+            "difficulty": "Advanced",
+            "source": "ATI Punjab",
+            "expected": "Advanced → Expert (applied)"
+        }
+    ],
+    "departments": [
+        "Department of Statistics",
+        "Department of Finance",
+        "Department of Rural Development"
+    ],
+    "workforce": [
+        {
+            "name": "Testificate",
+            "dept": "Department of Statistics",
+            "role": "Statistical Officer",
+            "SQL": 2,
+            "Data Quality": 2,
+            "Survey Design": 3,
+            "Data Visualization": 3
+        },
+        {
+            "name": "Anita Sharma",
+            "dept": "Department of Statistics",
+            "role": "Statistical Officer",
+            "SQL": 3,
+            "Data Quality": 3,
+            "Survey Design": 4,
+            "Data Visualization": 3
+        },
+        {
+            "name": "Manpreet Singh",
+            "dept": "Department of Statistics",
+            "role": "Data Analyst",
+            "SQL": 4,
+            "Data Quality": 3,
+            "Survey Design": 2,
+            "Data Visualization": 4
+        },
+        {
+            "name": "Simran Kaur",
+            "dept": "Department of Finance",
+            "role": "Finance Officer",
+            "SQL": 2,
+            "Data Quality": 2,
+            "Survey Design": 1,
+            "Data Visualization": 2
+        },
+        {
+            "name": "Harpreet Dhillon",
+            "dept": "Department of Finance",
+            "role": "Accounts Officer",
+            "SQL": 1,
+            "Data Quality": 2,
+            "Survey Design": 1,
+            "Data Visualization": 2
+        },
+        {
+            "name": "Neha Verma",
+            "dept": "Department of Rural Development",
+            "role": "Field Coordinator",
+            "SQL": 1,
+            "Data Quality": 3,
+            "Survey Design": 3,
+            "Data Visualization": 2
+        },
+        {
+            "name": "Karamjit Bajwa",
+            "dept": "Department of Rural Development",
+            "role": "Field Coordinator",
+            "SQL": 2,
+            "Data Quality": 2,
+            "Survey Design": 3,
+            "Data Visualization": 2
+        },
+        {
+            "name": "Priya Chawla",
+            "dept": "Department of Statistics",
+            "role": "Statistical Officer",
+            "SQL": 3,
+            "Data Quality": 4,
+            "Survey Design": 3,
+            "Data Visualization": 3
+        }
+    ],
+    "orgGaps": [
+        {
+            "competency": "SQL",
+            "affected": 126,
+            "avgCurrent": 2.4,
+            "required": 4,
+            "priority": "High"
+        },
+        {
+            "competency": "Data Quality Frameworks",
+            "affected": 98,
+            "avgCurrent": 2.6,
+            "required": 4,
+            "priority": "High"
+        },
+        {
+            "competency": "Data Visualization",
+            "affected": 74,
+            "avgCurrent": 2.9,
+            "required": 3.8,
+            "priority": "Medium"
+        },
+        {
+            "competency": "Survey Design",
+            "affected": 52,
+            "avgCurrent": 3,
+            "required": 3.7,
+            "priority": "Medium"
+        },
+        {
+            "competency": "Cybersecurity",
+            "affected": 140,
+            "avgCurrent": 2.2,
+            "required": 3.2,
+            "priority": "High"
+        }
+    ],
+    "trainingEffectiveness": [
+        {
+            "program": "Advanced SQL for Government Data",
+            "before": 2.1,
+            "after": 3.4,
+            "completion": 82,
+            "participants": 34
+        },
+        {
+            "program": "Data Quality & Validation Frameworks",
+            "before": 2.3,
+            "after": 3.5,
+            "completion": 91,
+            "participants": 21
+        },
+        {
+            "program": "Digital Safety Essentials",
+            "before": 2,
+            "after": 3,
+            "completion": 96,
+            "participants": 112
+        }
+    ],
+    "levelNames": [
+        "",
+        "Beginner",
+        "Basic",
+        "Intermediate",
+        "Advanced",
+        "Expert"
+    ],
+    "priorityStyles": {
+        "Critical": {
+            "fg": "#A63D2F",
+            "bg": "#F6E7E4"
+        },
+        "High": {
+            "fg": "#C97A2C",
+            "bg": "#FAEEE0"
+        },
+        "Medium": {
+            "fg": "#9C8B3C",
+            "bg": "#F5F1DF"
+        },
+        "Low": {
+            "fg": "#2F6F4F",
+            "bg": "#E6F0EA"
+        }
+    },
+    "requiredByRole": {
+        "Statistical Officer": 4,
+        "Data Analyst": 4,
+        "Finance Officer": 3,
+        "Accounts Officer": 3,
+        "Field Coordinator": 3
+    }
+}

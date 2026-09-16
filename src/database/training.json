@@ -1,0 +1,52 @@
+{
+    "trainingPrograms": [
+        {
+            "id": "t1",
+            "title": "Advanced SQL for Government Data",
+            "competency": "SQL",
+            "targetRole": "Statistical Officer",
+            "targetLevel": "Advanced",
+            "duration": "10 hrs",
+            "mode": "Self-paced",
+            "trainer": "S. Bansal",
+            "participants": 34,
+            "status": "Active"
+        },
+        {
+            "id": "t2",
+            "title": "Data Quality & Validation Frameworks",
+            "competency": "Data Quality Frameworks",
+            "targetRole": "Statistical Officer",
+            "targetLevel": "Intermediate",
+            "duration": "3 days",
+            "mode": "Classroom",
+            "trainer": "R. Sethi",
+            "participants": 21,
+            "status": "Active"
+        },
+        {
+            "id": "t3",
+            "title": "Modern Survey Design Methods",
+            "competency": "Survey Design",
+            "targetRole": "Statistical Officer, Survey Analyst",
+            "targetLevel": "Advanced",
+            "duration": "4 days",
+            "mode": "Classroom",
+            "trainer": "A. Grewal",
+            "participants": 18,
+            "status": "Planning"
+        },
+        {
+            "id": "t4",
+            "title": "AI Fundamentals for Public Servants",
+            "competency": "AI/ML",
+            "targetRole": "All",
+            "targetLevel": "Basic",
+            "duration": "8 hrs",
+            "mode": "Self-paced",
+            "trainer": "iGOT Central",
+            "participants": 112,
+            "status": "Active"
+        }
+    ]
+}
