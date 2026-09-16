@@ -130,3 +130,14 @@ model Session {
   expiresAt DateTime
   createdAt DateTime @default(now())
 }
+
+// Cached AI-generated "whole profile" summary — regenerated on every new
+// attempt submission, never re-called live on view. One row per user.
+model AiProfileSummary {
+  userId          String   @id
+  summary         String
+  model           String
+  provider        String // "openrouter" | "nvidia" | "mock"
+  basedOnAttemptId String
+  generatedAt     DateTime @default(now())
+}

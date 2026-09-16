@@ -31,6 +31,31 @@ workforce capacity-building, with:
   certificate, admin dept filter, PWA shell, notification center, email
   hook stub, code-split pages, i18n audit tooling.
 
+## 0b. Changelog (post-handoff batch fixes)
+
+Track incremental fixes here as they land, newest first, so the next agent
+doesn't have to diff the zip against the previous one.
+
+- **[Batch 1] Proctoring lock widened to cover device-check screen.**
+  `src/components/saksham/app-shell.tsx` — the sidebar/logout/language/
+  avatar disable-state and the AI widget's visibility used to key off
+  `proctor.active` alone, which only becomes `true` once fullscreen is
+  entered. That left a window during the camera/mic permission screen
+  (`quiz.page === "proctor-check"`) where the dashboard chrome still looked
+  interactive and the floating AI widget was still visible, even though
+  `PageRouter` was already force-showing the proctor-check content
+  underneath. Fixed by widening the `locked` condition:
+  ```ts
+  const locked =
+    proctor.active || quiz.page === "proctor-check" || quiz.page === "quiz";
+  ```
+  No other files touched. The in-page "Cancel" button on the proctor-check
+  screen is unaffected (it's part of that page's own content, not the
+  shell chrome) and still lets the user back out before starting.
+  Client-side only, by request — no server-side gate was added on the
+  AI-service route for this batch (see "Suggested next steps" below if that
+  changes).
+
 ## 1. Accounts (seeded, bcrypt-hashed)
 
 | Role | Email | Password |
@@ -48,20 +73,14 @@ trainer-dept scoping keys off.
 ## 2. How to run (Windows or Linux; Bun preferred, Node 20+ works)
 
 ```bash
-bun install                                   # root deps
-cd mini-services/ai-service && bun install && cd ../..
-
-# .env (root) — generate fresh, NEVER commit/ship:
-#   AUTH_SECRET=<hex32>      NEXTAUTH_SECRET=<same hex32>
-#   FANOUT_SECRET=<hex32>    DATABASE_URL="file:./dev.db"
-#   DATA_BACKEND=sqlite      # or "mongo" + MONGODB_URI=... + MONGODB_DB=saksham
-
-bun run db:push && bun run db:seed            # SQLite schema + seed (idempotent)
-bun run db:seed:mongo                         # only for the Atlas demo
+bun run setup            # ONE COMMAND: installs root + both mini-services, db push + seed
+# (or step by step: bun install; bun install --cwd mini-services/ai-service;
+#  bun install --cwd mini-services/realtime-service; bun run db:push; bun run db:seed)
+bun run db:seed:mongo    # only for the Atlas demo
 
 bun run dev            # app        http://localhost:3000
-bun run dev:realtime   # realtime   http://localhost:3004 (socket.io + /fanout)
-bun run dev:ai         # AI service http://localhost:3003 (chat + generate_assessment)
+bun run dev:realtime   # realtime   http://localhost:3004 (auto-installs its deps first)
+bun run dev:ai         # AI service http://localhost:3003 (auto-installs its deps first)
 ```
 
 Env knobs: `NEXT_PUBLIC_AI_URL` / `NEXT_PUBLIC_REALTIME_URL` override the
@@ -182,7 +201,13 @@ notified) → trainer's dashboard feed shows the submission.
 5. **Two `next dev` instances cannot share `.next`** (lock file). Stop one,
    delete `.next/dev/lock`, restart. Port stuck? `netstat -ano | grep :3000`
    then `taskkill //F //PID <pid>` (Windows).
-6. **i18n**: en + hi are complete. The other 8 languages fall back to
+6. **Mini-service deps are per-folder**: `mini-services/ai-service` and
+   `mini-services/realtime-service` each have their own `package.json` —
+   `bun install` at the root does NOT cover them. `bun run setup` handles
+   everything, and `dev:realtime`/`dev:ai` auto-install first. If you see
+   `Cannot find package 'socket.io'`, run `bun install --cwd
+   mini-services/realtime-service` (or ai-service).
+6b. **i18n**: en + hi are complete. The other 8 languages fall back to
    English for ~39 keys each — the queue + review checklist live in
    `docs/native-speaker-audit-checklist.md` and `docs/i18n-coverage.md`.
 7. **AI/LLM**: with `LLM_ENABLED=false` (default) the chat uses local QA
@@ -213,6 +238,15 @@ notified) → trainer's dashboard feed shows the submission.
 5. **Deployment** — the app expects all three ports reachable; front it
    with the original Caddy (or any proxy) and set the `NEXT_PUBLIC_*_URL`
    overrides accordingly. `EMAIL_ENABLED`, `LLM_ENABLED` stay off by default.
+6. **(Open, deferred from Batch 1) Server-side proctoring gate** — the
+   AI-service route (`mini-services/ai-service/index.ts`) currently has no
+   awareness of proctor/quiz state, so a request crafted directly against
+   `:3003` (bypassing the UI) would still get a response while an
+   assessment is "locked" client-side. Not done in Batch 1 by explicit
+   request (client-side hiding was deemed sufficient for the demo) — worth
+   revisiting before any real pilot, e.g. by having the client pass the
+   active attempt id/proctor token and having the service refuse/queue
+   while that attempt is open.
 
 ## 8. Hard constraints (still in force)
 

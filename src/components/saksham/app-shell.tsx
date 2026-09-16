@@ -200,7 +200,14 @@ function AppShellInner() {
         ? NAV_TRAINER
         : NAV_ADMIN;
 
-  const locked = proctor.active;
+  // Locked for the entire assessment flow — from the moment the device-check
+  // screen opens (quiz.page === "proctor-check"), through the fullscreen
+  // proctored session (proctor.active), until the quiz is submitted. This is
+  // deliberately wider than just `proctor.active` so the dashboard/AI can't
+  // be reached during the camera/mic permission step either, even though
+  // fullscreen hasn't been entered yet.
+  const locked =
+    proctor.active || quiz.page === "proctor-check" || quiz.page === "quiz";
   const lockedReason =
     locked && page !== "quiz" ? t("common.navLockedToast") : null;
 

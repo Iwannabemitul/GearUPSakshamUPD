@@ -15,7 +15,8 @@ async function main() {
     process.exit(1);
   }
   const dbName = process.env.MONGODB_DB ?? "saksham";
-  const client = new MongoClient(uri, { serverSelectionTimeoutMS: 15000 });
+  console.log("Loaded URI:", process.env.MONGODB_URI);
+  const client = new MongoClient(process.env.MONGODB_URI!);
 
   console.log(`Connecting to MongoDB (db: ${dbName})...`);
   await client.connect();

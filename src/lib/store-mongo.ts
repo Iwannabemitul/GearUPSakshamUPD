@@ -13,6 +13,7 @@ import type {
   NewAttemptAnswers,
   NewAssignment,
   Store,
+  StoreAiProfileSummary,
   StoreAssignment,
   StoreAssignmentStatus,
   StoreAssignmentType,
@@ -89,7 +90,7 @@ function toKind(v: string): "CHECKPOINT" | "EXAM" {
 }
 
 export class MongoStore implements Store {
-  private async col<K extends "users" | "competencies" | "assessmentMeta" | "questions" | "attempts" | "assignments">(
+  private async col<K extends "users" | "competencies" | "assessmentMeta" | "questions" | "attempts" | "assignments" | "aiProfileSummaries">(
     name: K,
   ): Promise<Collection> {
     const d = await db();
@@ -498,5 +499,31 @@ export class MongoStore implements Store {
       if (fresh) updated.push(this.toAssignment(fresh) as StoreAssignment);
     }
     return updated;
+  }
+
+  // --- AI profile summary ---
+
+  async saveAiProfileSummary(
+    summary: Omit<StoreAiProfileSummary, "generatedAt">,
+  ): Promise<StoreAiProfileSummary> {
+    const c = await this.col("aiProfileSummaries");
+    const generatedAt = new Date();
+    const doc = { ...summary, generatedAt };
+    await c.updateOne(
+      { userId: summary.userId },
+      { $set: doc },
+      { upsert: true },
+    );
+    return doc;
+  }
+
+  async getAiProfileSummary(
+    userId: string,
+  ): Promise<StoreAiProfileSummary | null> {
+    const c = await this.col("aiProfileSummaries");
+    const doc = await c.findOne({ userId });
+    if (!doc) return null;
+    const { _id, ...rest } = doc as Record<string, unknown>;
+    return rest as StoreAiProfileSummary;
   }
 }

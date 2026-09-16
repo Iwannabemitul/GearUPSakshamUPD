@@ -7,6 +7,7 @@ import type {
   NewAttemptAnswers,
   NewAssignment,
   Store,
+  StoreAiProfileSummary,
   StoreAssignment,
   StoreAssignmentStatus,
   StoreAssignmentType,
@@ -437,5 +438,27 @@ export class PrismaStore implements Store {
       updated.push(this.assignmentFrom(r));
     }
     return updated;
+  }
+
+  // --- AI profile summary ---
+
+  async saveAiProfileSummary(
+    summary: Omit<StoreAiProfileSummary, "generatedAt">,
+  ): Promise<StoreAiProfileSummary> {
+    const row = await this.db.aiProfileSummary.upsert({
+      where: { userId: summary.userId },
+      create: { ...summary },
+      update: { ...summary },
+    });
+    return row;
+  }
+
+  async getAiProfileSummary(
+    userId: string,
+  ): Promise<StoreAiProfileSummary | null> {
+    const row = await this.db.aiProfileSummary.findUnique({
+      where: { userId },
+    });
+    return row ?? null;
   }
 }

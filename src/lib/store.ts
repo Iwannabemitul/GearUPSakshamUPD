@@ -142,6 +142,15 @@ export type NewAttemptAnswers = {
   newLevel: number;
 };
 
+export type StoreAiProfileSummary = {
+  userId: string;
+  summary: string;
+  model: string;
+  provider: "openrouter" | "nvidia" | "mock";
+  generatedAt: Date;
+  basedOnAttemptId: string; // the attempt whose submission triggered this generation
+};
+
 export interface Store {
   // --- users ---
   getUserByEmail(email: string): Promise<StoreUser | null>;
@@ -223,6 +232,14 @@ export interface Store {
     assigneeId: string,
     assessmentExternalId: string,
   ): Promise<StoreAssignment[]>;
+
+  // --- AI profile summary (generated once per submission, cached) ---
+  /** Store/overwrite the cached AI profile summary for a user. */
+  saveAiProfileSummary(
+    summary: Omit<StoreAiProfileSummary, "generatedAt">,
+  ): Promise<StoreAiProfileSummary>;
+  /** Fetch the last cached AI profile summary for a user, if any. */
+  getAiProfileSummary(userId: string): Promise<StoreAiProfileSummary | null>;
 }
 
 import { PrismaStore } from "@/lib/store-prisma";
@@ -230,8 +247,13 @@ import { MongoStore } from "@/lib/store-mongo";
 
 export type DataBackend = "sqlite" | "mongo";
 
+/**
+ * MongoDB (Atlas) is now the primary/default backend. Set DATA_BACKEND=sqlite
+ * explicitly to fall back to the local Prisma/SQLite adapter (still kept in
+ * the codebase for local dev without internet access / Atlas allowlisting).
+ */
 export function getDataBackend(): DataBackend {
-  return process.env.DATA_BACKEND === "mongo" ? "mongo" : "sqlite";
+  return process.env.DATA_BACKEND === "sqlite" ? "sqlite" : "mongo";
 }
 
 let prismaSingleton: PrismaStore | null = null;

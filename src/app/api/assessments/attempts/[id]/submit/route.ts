@@ -11,6 +11,7 @@ import { getStore } from "@/lib/store";
 import { getSessionOrNull, jsonError } from "@/lib/auth";
 import { fanout } from "@/lib/fanout";
 import { nextLevel, scoreAttempt } from "@/lib/scoring";
+import { regenerateProfileSummary } from "@/lib/ai-profile-summary";
 
 type SubmitBody = {
   answers?: Array<{ questionId: string; userIndex: number }>;
@@ -123,6 +124,12 @@ export async function POST(
       `user:${a.authorId}`,
     ]);
   }
+
+  // Fire-and-forget: regenerate the cached whole-profile AI summary using
+  // this new attempt plus all prior history. Never blocks the response —
+  // if the ai-service is slow/down, the Result page just shows the
+  // previous cached summary (or none) until the next successful run.
+  void regenerateProfileSummary(store, session.userId, submitted.id);
 
   return Response.json({
     attempt: submitted,

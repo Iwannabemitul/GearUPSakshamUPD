@@ -14,10 +14,15 @@
  * splitting it into modules would add overhead without clarity.
  */
 
-import { createServer } from "http";
+import { createServer, type IncomingMessage, type ServerResponse } from "http";
 import { Server } from "socket.io";
+import { availableProviders, chatComplete } from "./llm";
 
 const PORT = 3003;
+// Separate plain-HTTP port for server-to-server JSON calls from the Next.js
+// app (profile-summary generation). Kept off the socket.io port so we don't
+// have to fight engine.io for request routing on "/".
+const HTTP_PORT = Number(process.env.AI_HTTP_PORT || 3005);
 
 // --- Mock QA database (mirrors src/lib/ai-widget.tsx) ----------------------
 
@@ -251,44 +256,11 @@ const FALLBACK: Record<string, string> = {
 
 const LLM_ENABLED = process.env.LLM_ENABLED === "true";
 
-// Pick the provider based on which env vars are set.
-type Provider = "openrouter" | "openai" | "custom" | "none";
-
-function detectProvider(): Provider {
-  if (process.env.OPENROUTER_API_KEY) return "openrouter";
-  if (process.env.OPENAI_API_KEY) return "openai";
-  if (process.env.LLM_BASE_URL && process.env.LLM_API_KEY) return "custom";
-  return "none";
-}
-
-const LLM_PROVIDER = detectProvider();
-
-const PROVIDER_CONFIG: Record<
-  Exclude<Provider, "none">,
-  { baseUrl: string; apiKey: string; defaultModel: string }
-> = {
-  openrouter: {
-    baseUrl: "https://openrouter.ai/api/v1",
-    apiKey: process.env.OPENROUTER_API_KEY || "",
-    defaultModel: "openai/gpt-4o-mini",
-  },
-  openai: {
-    baseUrl: "https://api.openai.com/v1",
-    apiKey: process.env.OPENAI_API_KEY || "",
-    defaultModel: "gpt-4o-mini",
-  },
-  custom: {
-    baseUrl: process.env.LLM_BASE_URL || "",
-    apiKey: process.env.LLM_API_KEY || "",
-    defaultModel: process.env.LLM_MODEL || "gpt-4o-mini",
-  },
-};
-
-const LLM_MODEL =
-  process.env.OPENROUTER_MODEL ||
-  process.env.OPENAI_MODEL ||
-  process.env.LLM_MODEL ||
-  (LLM_PROVIDER === "none" ? "gpt-4o-mini" : PROVIDER_CONFIG[LLM_PROVIDER].defaultModel);
+// Provider selection + fallback (OpenRouter -> NVIDIA -> OpenAI -> custom)
+// now lives in ./llm.ts, shared by chat replies, assessment generation, and
+// the new AI profile-summary feature.
+const CONFIGURED_PROVIDERS = availableProviders();
+const LLM_PROVIDER = CONFIGURED_PROVIDERS[0] ?? "none"; // for the startup log line only
 
 const LANG_NAME: Record<string, string> = {
   en: "English",
@@ -304,53 +276,18 @@ const LANG_NAME: Record<string, string> = {
 };
 
 async function callLlm(text: string, lang: string): Promise<string | null> {
-  if (!LLM_ENABLED || LLM_PROVIDER === "none") return null;
-  const cfg = PROVIDER_CONFIG[LLM_PROVIDER];
-  if (!cfg.apiKey) return null;
+  if (!LLM_ENABLED) return null;
   const langName = LANG_NAME[lang] || "English";
 
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${cfg.apiKey}`,
-  };
+  const result = await chatComplete([
+    {
+      role: "system",
+      content: `You are Saksham, a skill-intelligence assistant for Indian government employees. The user is a Statistical Officer analysing government datasets. Reply in ${langName}. Be concise (max 3 sentences). If the question is off-topic, gently steer back to skill gaps, learning paths, or assessments.`,
+    },
+    { role: "user", content: text },
+  ], { maxTokens: 250, temperature: 0.3 });
 
-  // OpenRouter recommends these optional headers for analytics + ranking.
-  if (LLM_PROVIDER === "openrouter") {
-    headers["HTTP-Referer"] = "https://saksham.gov.in";
-    headers["X-Title"] = "Saksham Skill Intelligence";
-  }
-
-  try {
-    const res = await fetch(`${cfg.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        model: LLM_MODEL,
-        messages: [
-          {
-            role: "system",
-            content: `You are Saksham, a skill-intelligence assistant for Indian government employees. The user is a Statistical Officer analysing government datasets. Reply in ${langName}. Be concise (max 3 sentences). If the question is off-topic, gently steer back to skill gaps, learning paths, or assessments.`,
-          },
-          { role: "user", content: text },
-        ],
-        max_tokens: 250,
-        temperature: 0.3,
-      }),
-    });
-    if (!res.ok) {
-      console.warn(
-        `[ai-service] LLM call failed: ${res.status} ${res.statusText}`,
-      );
-      return null;
-    }
-    const data = (await res.json()) as {
-      choices?: Array<{ message?: { content?: string } }>;
-    };
-    return data.choices?.[0]?.message?.content ?? null;
-  } catch (e) {
-    console.warn("[ai-service] LLM call threw:", e);
-    return null;
-  }
+  return result?.content ?? null;
 }
 
 // --- Mock matcher ----------------------------------------------------------
@@ -381,50 +318,29 @@ async function generateViaLlm(
   count: number,
   difficulty: string,
 ): Promise<GeneratedQuestion[] | null> {
-  if (!LLM_ENABLED || LLM_PROVIDER === "none") return null;
-  const cfg = PROVIDER_CONFIG[LLM_PROVIDER];
-  if (!cfg.apiKey) return null;
+  if (!LLM_ENABLED) return null;
 
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${cfg.apiKey}`,
-  };
-  if (LLM_PROVIDER === "openrouter") {
-    headers["HTTP-Referer"] = "https://saksham.gov.in";
-    headers["X-Title"] = "Saksham Skill Intelligence";
-  }
+  const result = await chatComplete(
+    [
+      {
+        role: "system",
+        content:
+          'You generate multiple-choice assessment questions for Indian government capacity-building programmes. Respond with STRICT JSON only — no markdown fences, no commentary — shaped as: {"questions":[{"q":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."}]} where "answer" is the zero-based index of the correct option. Every question must have exactly 4 options.',
+      },
+      {
+        role: "user",
+        content: `Generate ${count} ${difficulty}-level multiple-choice questions for the assessment "${title}" on the competency "${competency}" in the context of Indian government workforce training (e.g. data analysis, governance, service delivery).`,
+      },
+    ],
+    { maxTokens: 2000, temperature: 0.4 },
+  );
+  if (!result) return null;
 
   try {
-    const res = await fetch(`${cfg.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        model: LLM_MODEL,
-        messages: [
-          {
-            role: "system",
-            content:
-              'You generate multiple-choice assessment questions for Indian government capacity-building programmes. Respond with STRICT JSON only — no markdown fences, no commentary — shaped as: {"questions":[{"q":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."}]} where "answer" is the zero-based index of the correct option. Every question must have exactly 4 options.',
-          },
-          {
-            role: "user",
-            content: `Generate ${count} ${difficulty}-level multiple-choice questions for the assessment "${title}" on the competency "${competency}" in the context of Indian government workforce training (e.g. data analysis, governance, service delivery).`,
-          },
-        ],
-        max_tokens: 2000,
-        temperature: 0.4,
-      }),
-    });
-    if (!res.ok) {
-      console.warn(`[ai-service] generate_assessment LLM failed: ${res.status}`);
-      return null;
-    }
-    const data = (await res.json()) as {
-      choices?: Array<{ message?: { content?: string } }>;
-    };
-    const raw = data.choices?.[0]?.message?.content;
-    if (!raw) return null;
-    const cleaned = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+    const cleaned = result.content
+      .replace(/^```(?:json)?\s*/i, "")
+      .replace(/\s*```$/i, "")
+      .trim();
     const parsed = JSON.parse(cleaned) as { questions?: GeneratedQuestion[] };
     if (!Array.isArray(parsed.questions)) return null;
     const valid = parsed.questions.filter(
@@ -438,10 +354,129 @@ async function generateViaLlm(
     );
     return valid.length > 0 ? valid.slice(0, count) : null;
   } catch (e) {
-    console.warn("[ai-service] generate_assessment LLM threw:", e);
+    console.warn("[ai-service] generate_assessment JSON parse failed:", e);
     return null;
   }
 }
+
+// --- AI Profile Summary (whole-profile, generated on submission) -----------
+
+export type ProfileSummaryInput = {
+  userName: string;
+  designation: string | null;
+  department: string | null;
+  competencies: Array<{ name: string; current: number; required: number }>;
+  attempts: Array<{
+    assessmentTitle: string;
+    assessmentCompetency: string;
+    score: number | null;
+    prevLevel: number | null;
+    newLevel: number | null;
+    submittedAt: string | null;
+  }>;
+  assignments: Array<{
+    title: string;
+    type: string;
+    status: string;
+  }>;
+};
+
+async function generateProfileSummary(
+  input: ProfileSummaryInput,
+): Promise<{ content: string; provider: string; model: string } | null> {
+  const compLines = input.competencies
+    .map((c) => `- ${c.name}: current level ${c.current}/5, required ${c.required}/5`)
+    .join("\n") || "- (no competency data yet)";
+  const attemptLines =
+    input.attempts
+      .slice(0, 25)
+      .map(
+        (a) =>
+          `- ${a.assessmentTitle} (${a.assessmentCompetency}): score ${a.score ?? "n/a"}%, level ${a.prevLevel ?? "?"} -> ${a.newLevel ?? "?"}${a.submittedAt ? `, on ${a.submittedAt}` : ""}`,
+      )
+      .join("\n") || "- (no assessment attempts yet)";
+  const assignmentLines =
+    input.assignments
+      .slice(0, 25)
+      .map((a) => `- ${a.title} (${a.type}): ${a.status}`)
+      .join("\n") || "- (no assignments)";
+
+  const messages: ChatMessageLike[] = [
+    {
+      role: "system",
+      content:
+        "You are Saksham, a skill-intelligence assistant writing a short performance summary for an Indian government employee's training profile. Use the FULL profile data given (all past assessment attempts, current competency levels, and assignment history) — not just the most recent attempt — to describe overall trends, strengths, persistent gaps, and a concrete next-step recommendation. Write 3-5 sentences, plain language, encouraging but honest tone, no markdown.",
+    },
+    {
+      role: "user",
+      content: `Employee: ${input.userName}${input.designation ? `, ${input.designation}` : ""}${input.department ? ` (${input.department})` : ""}.
+
+Competencies:
+${compLines}
+
+Assessment attempt history (most recent first):
+${attemptLines}
+
+Assignment history:
+${assignmentLines}
+
+Write the whole-profile summary now.`,
+    },
+  ];
+
+  if (!LLM_ENABLED) {
+    return {
+      content: mockProfileSummary(input),
+      provider: "mock",
+      model: "mock",
+    };
+  }
+
+  const result = await chatComplete(messages, { maxTokens: 400, temperature: 0.4 });
+  if (!result) {
+    return { content: mockProfileSummary(input), provider: "mock", model: "mock" };
+  }
+  return { content: result.content.trim(), provider: result.provider, model: result.model };
+}
+
+/** Deterministic offline fallback for the profile summary (LLM off/unreachable). */
+function mockProfileSummary(input: ProfileSummaryInput): string {
+  const gaps = input.competencies
+    .filter((c) => c.current < c.required)
+    .sort((a, b) => b.required - b.current - (a.required - a.current));
+  const topGap = gaps[0];
+  const attemptCount = input.attempts.length;
+  const avgScore = attemptCount
+    ? Math.round(
+        input.attempts.reduce((s, a) => s + (a.score ?? 0), 0) / attemptCount,
+      )
+    : null;
+  const parts: string[] = [];
+  parts.push(
+    attemptCount
+      ? `${input.userName} has completed ${attemptCount} assessment${attemptCount === 1 ? "" : "s"} with an average score of ${avgScore}%.`
+      : `${input.userName} has not yet completed any assessments.`,
+  );
+  if (topGap) {
+    parts.push(
+      `The largest current gap is in ${topGap.name}, at level ${topGap.current}/5 against a required level of ${topGap.required}/5.`,
+    );
+  } else if (input.competencies.length) {
+    parts.push("All tracked competencies currently meet or exceed the required level.");
+  }
+  const pending = input.assignments.filter((a) => a.status === "PENDING" || a.status === "STARTED");
+  if (pending.length) {
+    parts.push(`${pending.length} assignment${pending.length === 1 ? " is" : "s are"} still pending completion.`);
+  }
+  parts.push(
+    topGap
+      ? `Recommended next step: prioritise closing the ${topGap.name} gap through the assigned learning path.`
+      : "Recommended next step: maintain current levels with periodic refresher assessments.",
+  );
+  return parts.join(" ");
+}
+
+type ChatMessageLike = { role: "system" | "user" | "assistant"; content: string };
 
 /** Deterministic offline fallback — derives simple recall questions. */
 function generateMock(competency: string, count: number, difficulty: string): GeneratedQuestion[] {
@@ -573,13 +608,65 @@ io.on("connection", (socket) => {
 
 httpServer.listen(PORT, () => {
   console.log(
-    `[ai-service] listening on port ${PORT} | LLM=${LLM_ENABLED ? "on" : "off"} | provider=${LLM_PROVIDER} | model=${LLM_MODEL}`,
+    `[ai-service] socket.io listening on port ${PORT} | LLM=${LLM_ENABLED ? "on" : "off"} | providers=${CONFIGURED_PROVIDERS.join(",") || "none"} (fallback order, first=preferred)`,
   );
+});
+
+// --- Plain HTTP endpoint: /summarize-profile --------------------------------
+// Called server-to-server from the Next.js app right after an attempt is
+// submitted (fire-and-forget from the caller's point of view). Separate
+// port from the socket.io server so we don't have to fight engine.io's
+// request routing on path "/".
+
+const AI_SERVICE_SECRET = process.env.AI_SERVICE_SECRET;
+
+const restServer = createServer(async (req: IncomingMessage, res: ServerResponse) => {
+  if (req.method !== "POST" || req.url !== "/summarize-profile") {
+    res.writeHead(404, { "Content-Type": "application/json" });
+    res.end(JSON.stringify({ error: "not found" }));
+    return;
+  }
+
+  if (AI_SERVICE_SECRET) {
+    const provided = req.headers["x-ai-service-secret"];
+    if (provided !== AI_SERVICE_SECRET) {
+      res.writeHead(401, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "unauthorized" }));
+      return;
+    }
+  }
+
+  let body = "";
+  req.on("data", (chunk) => {
+    body += chunk;
+  });
+  req.on("end", async () => {
+    try {
+      const parsed = JSON.parse(body || "{}") as { profile?: ProfileSummaryInput };
+      if (!parsed.profile) {
+        res.writeHead(400, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ error: "profile is required" }));
+        return;
+      }
+      const result = await generateProfileSummary(parsed.profile);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(JSON.stringify(result));
+    } catch (e) {
+      console.warn("[ai-service] /summarize-profile failed:", e);
+      res.writeHead(500, { "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "internal error" }));
+    }
+  });
+});
+
+restServer.listen(HTTP_PORT, () => {
+  console.log(`[ai-service] REST endpoint listening on port ${HTTP_PORT} (/summarize-profile)`);
 });
 
 // Graceful shutdown
 const shutdown = () => {
   console.log("[ai-service] shutting down…");
+  restServer.close();
   httpServer.close(() => process.exit(0));
 };
 process.on("SIGTERM", shutdown);
