@@ -1,5 +1,5 @@
 /**
- * Saksham AI Service — socket.io mini-service on port 3003.
+ * Saksham AI Service — socket.io + REST mini-service, single port (3003).
  *
  * Responsibilities:
  *   1. Receive `ai_respond` events with `{ text, lang, email }`.
@@ -9,6 +9,10 @@
  *      it to reply in the user's selected language.
  *   4. If neither produces an answer, fall back to a per-language canned
  *      response.
+ *   5. Also serves `POST /summarize-profile` (whole-profile AI summary) as
+ *      a plain HTTP request handler on this same server/port — see the
+ *      `path` comment on the socket.io server below for why it's safe to
+ *      share the port instead of using a second one.
  *
  * The whole service is single-file on purpose — it's small enough that
  * splitting it into modules would add overhead without clarity.
@@ -19,10 +23,6 @@ import { Server } from "socket.io";
 import { availableProviders, chatComplete } from "./llm";
 
 const PORT = 3003;
-// Separate plain-HTTP port for server-to-server JSON calls from the Next.js
-// app (profile-summary generation). Kept off the socket.io port so we don't
-// have to fight engine.io for request routing on "/".
-const HTTP_PORT = Number(process.env.AI_HTTP_PORT || 3005);
 
 // --- Mock QA database (mirrors src/lib/ai-widget.tsx) ----------------------
 
@@ -537,7 +537,12 @@ function generateMock(competency: string, count: number, difficulty: string): Ge
 
 const httpServer = createServer();
 const io = new Server(httpServer, {
-  path: "/",
+  // Default engine.io path ("/socket.io/") rather than root "/", so plain
+  // HTTP requests to other paths (e.g. /summarize-profile below) reach our
+  // own request handler instead of being swallowed by engine.io. This lets
+  // the REST endpoint share this same server/port instead of needing a
+  // second public port (hosts that only expose one port per service, like
+  // Railway's free-tier auto-generated domains, need this).
   cors: { origin: "*", methods: ["GET", "POST"] },
   pingTimeout: 60000,
   pingInterval: 25000,
@@ -614,13 +619,17 @@ httpServer.listen(PORT, () => {
 
 // --- Plain HTTP endpoint: /summarize-profile --------------------------------
 // Called server-to-server from the Next.js app right after an attempt is
-// submitted (fire-and-forget from the caller's point of view). Separate
-// port from the socket.io server so we don't have to fight engine.io's
-// request routing on path "/".
+// submitted (fire-and-forget from the caller's point of view). Shares the
+// same server/port as socket.io (see the `path` comment above) rather than
+// a separate port, so only one public domain is needed for this service.
 
 const AI_SERVICE_SECRET = process.env.AI_SERVICE_SECRET;
 
-const restServer = createServer(async (req: IncomingMessage, res: ServerResponse) => {
+httpServer.on("request", async (req: IncomingMessage, res: ServerResponse) => {
+  // Anything under /socket.io/ is engine.io's own traffic — let it through
+  // untouched; only handle our own REST path here.
+  if (req.url?.startsWith("/socket.io/")) return;
+
   if (req.method !== "POST" || req.url !== "/summarize-profile") {
     res.writeHead(404, { "Content-Type": "application/json" });
     res.end(JSON.stringify({ error: "not found" }));
@@ -659,14 +668,9 @@ const restServer = createServer(async (req: IncomingMessage, res: ServerResponse
   });
 });
 
-restServer.listen(HTTP_PORT, () => {
-  console.log(`[ai-service] REST endpoint listening on port ${HTTP_PORT} (/summarize-profile)`);
-});
-
 // Graceful shutdown
 const shutdown = () => {
   console.log("[ai-service] shutting down…");
-  restServer.close();
   httpServer.close(() => process.exit(0));
 };
 process.on("SIGTERM", shutdown);

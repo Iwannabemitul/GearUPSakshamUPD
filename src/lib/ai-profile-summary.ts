@@ -38,7 +38,12 @@ type ProfileSummaryInput = {
 };
 
 function aiServiceHttpUrl(): string {
-  return process.env.AI_SERVICE_HTTP_URL ?? "http://localhost:3005";
+  // ai-service now serves /summarize-profile on the same port as its
+  // socket.io server (3003) — see the port-sharing note in
+  // mini-services/ai-service/index.ts. AI_SERVICE_HTTP_URL can still
+  // override this for local dev if you're running an older split-port
+  // build of ai-service.
+  return process.env.AI_SERVICE_HTTP_URL ?? "http://localhost:3003";
 }
 
 /**
