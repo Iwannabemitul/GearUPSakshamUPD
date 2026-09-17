@@ -76,6 +76,14 @@ type QuizContextValue = {
   // History (per-session, in-memory)
   assessmentHistory: AssessmentHistoryEntry[];
   examHistory: AssessmentHistoryEntry[];
+  // Fallback meta/questions fetched from the server for assessments that
+  // only live in Mongo (e.g. AI-generated tests a trainer assigned) and
+  // aren't present in the static seed JSON. `assessmentLoading` is true
+  // while that lookup is still in flight so pages can show a spinner
+  // instead of flashing "assessment not found".
+  assessmentLoading: boolean;
+  serverAssessment: AssessmentMeta | null;
+  serverQuestions: Question[];
   begin: (assessmentId: string, kind?: QuizKind) => void;
   setAnswer: (i: number, opt: number) => void;
   goNext: () => void;
@@ -100,6 +108,9 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     AssessmentHistoryEntry[]
   >([]);
   const [examHistory, setExamHistory] = useState<AssessmentHistoryEntry[]>([]);
+  const [assessmentLoading, setAssessmentLoading] = useState(false);
+  const [serverAssessment, setServerAssessment] = useState<AssessmentMeta | null>(null);
+  const [serverQuestions, setServerQuestions] = useState<Question[]>([]);
 
   // Server-side attempt bookkeeping (Workstream A): begin() asks the API to
   // open an attempt; submit() posts the answers so the server can re-score
@@ -183,10 +194,26 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       setIndex(0);
       setAnswers([]);
       setLastResult(null);
+      setServerAssessment(null);
+      setServerQuestions([]);
       proctor.beginCheck(id, k);
       setPage("proctor-check");
 
-      // Ask the server to open an attempt (best-effort).
+      // The static seed JSON only knows about the originally-seeded
+      // assessments/exams. Trainer-assigned AI-generated tests exist only
+      // in Mongo, so if there's no local meta for this id, show a loading
+      // state (instead of "assessment not found") until the /start call
+      // below resolves the real meta + paper from the server.
+      const localMeta = data
+        ? (k === "exam" ? data.exams : data.assessments).find(
+            (a) => a.id === id,
+          )
+        : undefined;
+      setAssessmentLoading(!localMeta);
+
+      // Ask the server to open an attempt (best-effort). This also doubles
+      // as the source of truth for the assessment's meta + question paper
+      // when it isn't in the static seed JSON.
       attemptIdRef.current = null;
       paperRef.current = null;
       void (async () => {
@@ -197,16 +224,54 @@ export function QuizProvider({ children }: { children: ReactNode }) {
           if (!res.ok) return;
           const payload = (await res.json()) as {
             attemptId: string;
-            paper: Array<{ questionId: string }>;
+            assessment: {
+              externalId: string;
+              title: string;
+              competency: string;
+              questions: number;
+              minutes: number;
+              difficulty: string;
+              kind: string;
+            };
+            paper: Array<{
+              index: number;
+              questionId: string;
+              text: string;
+              options: string[];
+            }>;
           };
           attemptIdRef.current = payload.attemptId;
           paperRef.current = payload.paper;
+          if (!localMeta) {
+            setServerAssessment({
+              id: payload.assessment.externalId,
+              title: payload.assessment.title,
+              competency: payload.assessment.competency,
+              questions: payload.assessment.questions,
+              minutes: payload.assessment.minutes,
+              difficulty: payload.assessment.difficulty,
+            });
+            // The server withholds correct answers/explanations until
+            // submit (it scores authoritatively) — placeholder them here
+            // so the quiz can render; submit() replaces the full review
+            // (with real answers) once the server responds.
+            setServerQuestions(
+              payload.paper.map((p) => ({
+                q: p.text,
+                options: p.options,
+                answer: -1,
+                explanation: "",
+              })),
+            );
+          }
         } catch {
           /* offline attempt — result won't persist */
+        } finally {
+          setAssessmentLoading(false);
         }
       })();
     },
-    [proctor],
+    [proctor, data],
   );
 
   const setAnswer = useCallback((i: number, opt: number) => {
@@ -230,12 +295,15 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
     const bank: Record<string, Question[]> =
       kind === "exam" ? data.examQuestionBank : data.questionBank;
-    const meta =
+    const localMeta =
       kind === "exam"
         ? data.exams.find((a) => a.id === assessmentId)
         : data.assessments.find((a) => a.id === assessmentId);
+    // Fall back to the server-fetched meta/paper for assessments that only
+    // exist in Mongo (AI-generated tests assigned by a trainer).
+    const meta = localMeta ?? serverAssessment;
     if (!meta) return;
-    const questions = bank[assessmentId] || [];
+    const questions = localMeta ? bank[assessmentId] || [] : serverQuestions;
 
     // Score
     let correct = 0;
@@ -396,6 +464,9 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       lastResult,
       assessmentHistory,
       examHistory,
+      assessmentLoading,
+      serverAssessment,
+      serverQuestions,
       begin,
       setAnswer,
       goNext,
@@ -412,6 +483,9 @@ export function QuizProvider({ children }: { children: ReactNode }) {
       lastResult,
       assessmentHistory,
       examHistory,
+      assessmentLoading,
+      serverAssessment,
+      serverQuestions,
       begin,
       setAnswer,
       goNext,

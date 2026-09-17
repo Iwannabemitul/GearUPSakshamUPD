@@ -36,11 +36,20 @@ export function ProctorCheckPage() {
     return <EmptyState message={t("pages.assessmentNotFound")} />;
   }
 
-  const meta =
+  const localMeta =
     quiz.kind === "exam"
       ? data.exams.find((a) => a.id === quiz.assessmentId)
       : data.assessments.find((a) => a.id === quiz.assessmentId);
-  if (!meta) return <EmptyState message={t("pages.assessmentNotFound")} />;
+  // Trainer-assigned AI-generated tests only exist in Mongo, not the static
+  // seed JSON — fall back to the meta the quiz context fetched from the
+  // server when starting the attempt.
+  const meta = localMeta ?? quiz.serverAssessment;
+  if (!meta) {
+    if (quiz.assessmentLoading) {
+      return <EmptyState message="Loading assessment…" />;
+    }
+    return <EmptyState message={t("pages.assessmentNotFound")} />;
+  }
 
   const canStart = proctor.cameraOk && proctor.micOk && !proctor.checking;
 

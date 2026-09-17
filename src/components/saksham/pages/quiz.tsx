@@ -25,12 +25,23 @@ export function QuizPage() {
 
   const bank =
     quiz.kind === "exam" ? data.examQuestionBank : data.questionBank;
-  const meta =
+  const localMeta =
     quiz.kind === "exam"
       ? data.exams.find((a) => a.id === quiz.assessmentId)
       : data.assessments.find((a) => a.id === quiz.assessmentId);
-  if (!meta) return <EmptyState message={t("pages.assessmentNotFound")} />;
-  const questions = bank[quiz.assessmentId] || [];
+  // Trainer-assigned AI-generated tests only exist in Mongo, not the static
+  // seed JSON — fall back to the meta/paper the quiz context fetched from
+  // the server when starting the attempt.
+  const meta = localMeta ?? quiz.serverAssessment;
+  if (!meta) {
+    if (quiz.assessmentLoading) {
+      return <EmptyState message="Loading assessment…" />;
+    }
+    return <EmptyState message={t("pages.assessmentNotFound")} />;
+  }
+  const questions = localMeta
+    ? bank[quiz.assessmentId] || []
+    : quiz.serverQuestions;
   if (questions.length === 0) {
     return <EmptyState message="No questions found for this assessment." />;
   }
