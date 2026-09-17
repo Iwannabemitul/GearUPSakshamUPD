@@ -108,8 +108,8 @@ export function MyAssignmentsSection() {
           {active.map((a) => {
             const title =
               a.type === "COURSE"
-                ? (a.courseId ?? a.type)
-                : (a.assessmentId ?? a.type);
+                ? (a.courseTitle ?? a.courseId ?? a.type)
+                : (a.assessmentTitle ?? a.assessmentId ?? a.type);
             const fresh = isNew(a);
             return (
               <div
@@ -181,8 +181,8 @@ export function MyAssignmentsSection() {
             >
               ✓{" "}
               {a.type === "COURSE"
-                ? (a.courseId ?? a.type)
-                : (a.assessmentId ?? a.type)}
+                ? (a.courseTitle ?? a.courseId ?? a.type)
+                : (a.assessmentTitle ?? a.assessmentId ?? a.type)}
             </span>
           ))}
         </div>

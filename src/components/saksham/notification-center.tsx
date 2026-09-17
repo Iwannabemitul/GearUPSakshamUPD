@@ -66,13 +66,13 @@ export function NotificationCenter() {
   });
 
   useRealtimeEvent("assignment:created", (payload) => {
-    const p = payload as { id?: string; assigneeName?: string; assessmentId?: string; courseId?: string };
+    const p = payload as { id?: string; assigneeName?: string; assessmentId?: string; courseId?: string; assessmentTitle?: string; courseTitle?: string };
     if (!p?.id) return;
     push({
       id: `asn-${p.id}`,
       kind: "assignment:created",
       title: `${p.assigneeName ?? ""}`,
-      detail: p.assessmentId ?? p.courseId ?? "",
+      detail: p.assessmentTitle ?? p.courseTitle ?? p.assessmentId ?? p.courseId ?? "",
       at: new Date().toISOString(),
       read: false,
     });

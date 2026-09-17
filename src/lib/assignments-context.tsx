@@ -45,7 +45,9 @@ export type ClientAssignment = {
   assigneeName: string | null;
   type: ClientAssignmentType;
   assessmentId: string | null;
+  assessmentTitle?: string | null;
   courseId: string | null;
+  courseTitle?: string | null;
   note: string | null;
   dueAt: string | null;
   status: ClientAssignmentStatus;
@@ -114,8 +116,8 @@ export function AssignmentsProvider({ children }: { children: ReactNode }) {
         title: "New assignment received",
         description:
           a.type === "COURSE"
-            ? (a.courseId ?? "Course")
-            : (a.assessmentId ?? a.type),
+            ? (a.courseTitle ?? a.courseId ?? "Course")
+            : (a.assessmentTitle ?? a.assessmentId ?? a.type),
       });
     }
   });

@@ -11,6 +11,7 @@
 import { getStore } from "@/lib/store";
 import { getSessionOrNull, jsonError } from "@/lib/auth";
 import { fanout } from "@/lib/fanout";
+import { resolveAssignmentTitles } from "@/lib/assignment-titles";
 import { sendEmail } from "@/lib/email";
 
 type PostBody = {
@@ -81,7 +82,15 @@ export async function POST(req: Request) {
     dueAt,
   });
 
-  void fanout("assignment:created", assignment, [
+  const titles = await resolveAssignmentTitles(assignment);
+  const itemTitle =
+    titles.assessmentTitle ??
+    titles.courseTitle ??
+    assignment.assessmentId ??
+    assignment.courseId ??
+    assignment.type;
+
+  void fanout("assignment:created", { ...assignment, ...titles }, [
     `user:${assigneeId}`,
     `dept:${assignee.department ?? "unknown"}`,
   ]);
@@ -90,7 +99,7 @@ export async function POST(req: Request) {
   // EMAIL_ENABLED=true and a provider is configured in src/lib/email.ts).
   void sendEmail({
     to: assignee.email,
-    subject: `New assignment: ${assignment.type === "COURSE" ? (assignment.courseId ?? "Course") : (assignment.assessmentId ?? assignment.type)}`,
+    subject: `New assignment: ${itemTitle}`,
     body: `${session.name} has assigned you an item on Saksham. Sign in to view and start it.`,
   });
 
@@ -119,5 +128,12 @@ export async function GET(req: Request) {
     assignments = await store.listAllAssignments(since);
   }
 
-  return Response.json({ assignments, now: new Date().toISOString() });
+  const enriched = await Promise.all(
+    assignments.map(async (a) => ({
+      ...a,
+      ...(await resolveAssignmentTitles(a)),
+    })),
+  );
+
+  return Response.json({ assignments: enriched, now: new Date().toISOString() });
 }

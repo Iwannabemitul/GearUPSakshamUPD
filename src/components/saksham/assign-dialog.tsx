@@ -43,9 +43,11 @@ type WorkforcePerson = {
 export function AssignDialog({
   open,
   onOpenChange,
+  prefill,
 }: {
   open: boolean;
   onOpenChange: (v: boolean) => void;
+  prefill?: { type?: string; itemId?: string };
 }) {
   const t = useT();
   const { data } = useAuth();
@@ -53,6 +55,11 @@ export function AssignDialog({
   const { toast } = useToast();
 
   const [people, setPeople] = useState<WorkforcePerson[]>([]);
+  // Published assessments from the DB (includes AI-generated "g-..." ones
+  // that are absent from the static seed catalog).
+  const [dbAssessments, setDbAssessments] = useState<
+    Array<{ id: string; title: string; kind: string | null }>
+  >([]);
   const [assigneeId, setAssigneeId] = useState<string>("");
   const [type, setType] = useState<string>("ASSESSMENT");
   const [itemId, setItemId] = useState<string>("");
@@ -62,6 +69,10 @@ export function AssignDialog({
 
   useEffect(() => {
     if (!open) return;
+    if (prefill?.type) {
+      setType(prefill.type);
+      setItemId(prefill.itemId ?? "");
+    }
     void (async () => {
       try {
         const res = await fetch("/api/trainer/workforce");
@@ -74,23 +85,59 @@ export function AssignDialog({
       } catch {
         /* offline */
       }
+      try {
+        const res = await fetch("/api/assessments");
+        if (res.ok) {
+          const payload = (await res.json()) as {
+            assessments?: Array<{ id: string; title: string; kind: string | null }>;
+          };
+          setDbAssessments(payload.assessments ?? []);
+        }
+      } catch {
+        /* offline */
+      }
     })();
-  }, [open]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, prefill?.type, prefill?.itemId]);
 
+  // Merge DB-published assessments into the static lists (generated tests
+  // only exist in the store). Dedupe by id, static catalog wins on labels.
   const items = useMemo(() => {
-    if (type === "ASSESSMENT") return (data?.assessments ?? []).map((a) => ({ id: a.id, label: a.title }));
-    if (type === "EXAM") return (data?.exams ?? []).map((a) => ({ id: a.id, label: a.title }));
+    const merge = (
+      staticItems: Array<{ id: string; label: string }>,
+      kind: "ASSESSMENT" | "EXAM",
+    ) => {
+      const ids = new Set(staticItems.map((i) => i.id));
+      const extra = dbAssessments
+        .filter(
+          (a) =>
+            !ids.has(a.id) &&
+            (kind === "EXAM" ? a.kind === "EXAM" : a.kind !== "EXAM"),
+        )
+        .map((a) => ({ id: a.id, label: a.title }));
+      return [...staticItems, ...extra];
+    };
+    if (type === "ASSESSMENT")
+      return merge(
+        (data?.assessments ?? []).map((a) => ({ id: a.id, label: a.title })),
+        "ASSESSMENT",
+      );
+    if (type === "EXAM")
+      return merge(
+        (data?.exams ?? []).map((a) => ({ id: a.id, label: a.title })),
+        "EXAM",
+      );
     if (type === "COURSE") return IGOT_COURSES.map((c) => ({ id: c.id, label: c.title }));
     return (data?.learningPathSql ?? []).map((p) => ({
       id: `phase-${p.phase}`,
       label: p.title,
     }));
-  }, [type, data]);
+  }, [type, data, dbAssessments]);
 
   useEffect(() => {
-    // Reset item when the type changes.
-    setItemId("");
-  }, [type]);
+    // Reset item when the type changes — unless it matches an active prefill.
+    setItemId(type === prefill?.type && prefill?.itemId ? prefill.itemId : "");
+  }, [type]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const submit = async () => {
     if (!assigneeId || !itemId) return;

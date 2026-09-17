@@ -16,7 +16,7 @@ import {
   PriorityPill,
 } from "@/components/saksham/primitives";
 import { BarChart } from "@/components/saksham/charts";
-import { Clock, Users, Sparkles, UserPlus } from "lucide-react";
+import { Clock, Send, Users, Sparkles, UserPlus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ActivityFeed } from "@/components/saksham/activity-feed";
 import { AssignDialog } from "@/components/saksham/assign-dialog";
@@ -149,6 +149,12 @@ export function AssessmentGenerator() {
     Array<{ q: string; options: string[]; answer: number; explanation?: string }> | null
   >(null);
 
+  const [published, setPublished] = useState<{
+    externalId: string;
+    title: string;
+  } | null>(null);
+  const [assignOpen, setAssignOpen] = useState(false);
+
   if (!data) return null;
 
   // Workstream C.4 — generate via the AI mini-service (real LLM when
@@ -230,6 +236,10 @@ export function AssessmentGenerator() {
         description: payload.assessment?.externalId,
       });
       setGenerated(null);
+      setPublished({
+        externalId: payload.assessment?.externalId ?? "",
+        title,
+      });
     } catch (err) {
       toast({
         title: "Publish failed",
@@ -297,6 +307,33 @@ export function AssessmentGenerator() {
           </button>
         </div>
       </div>
+
+      {published ? (
+        <div className="bg-white rounded-xl border border-[var(--teal)] p-4 max-w-xl mb-4 flex items-center gap-3">
+          <div className="min-w-0 flex-1">
+            <div className="font-semibold text-sm truncate">
+              {t("ui.published")}: {published.title}
+            </div>
+            <div className="text-xs text-[var(--ink-soft)]">
+              {published.externalId}
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setAssignOpen(true)}
+            className="saksham-btn-primary shrink-0"
+          >
+            <Send size={14} />
+            {t("pages.assignToEmployee")}
+          </button>
+        </div>
+      ) : null}
+
+      <AssignDialog
+        open={assignOpen}
+        onOpenChange={setAssignOpen}
+        prefill={{ type: "ASSESSMENT", itemId: published?.externalId }}
+      />
 
       {generated ? (
         <div>

@@ -99,3 +99,26 @@ export async function POST(req: Request) {
 
   return Response.json({ assessment: meta }, { status: 201 });
 }
+
+/**
+ * GET — list published assessments from the store (seeded + AI-generated),
+ * so clients like the Assign dialog can offer everything that exists in the
+ * DB, not just the static seed catalog.
+ */
+export async function GET() {
+  const session = await getSessionOrNull();
+  if (!session) return jsonError("Unauthorized", 401);
+  try {
+    const metas = await getStore().listAssessmentMetas();
+    const assessments = metas
+      .filter((m) => m.isPublished)
+      .map((m) => ({
+        id: m.externalId,
+        title: m.title,
+        kind: m.kind,
+      }));
+    return Response.json({ assessments });
+  } catch {
+    return Response.json({ assessments: [] });
+  }
+}
