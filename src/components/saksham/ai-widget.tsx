@@ -285,14 +285,13 @@ const FALLBACK_BY_LANG: Record<LangCode, string> = {
 function localMatch(lang: LangCode, text: string): string {
   const bank = AI_QA_BY_LANG[lang] ?? AI_QA_BY_LANG.en;
   const lower = text.toLowerCase().trim();
-  // Try exact-substring match first.
+  // Exact-substring match only — see the matching server-side comment in
+  // mini-services/ai-service/index.ts's mockMatch() for why the old loose
+  // keyword-overlap fallback (any shared word >3 chars, no word boundaries,
+  // no punctuation stripping) was removed: it produced false positives for
+  // almost any input.
   for (const qa of bank) {
     if (lower.includes(qa.q.toLowerCase())) return qa.a;
-  }
-  // Try keyword overlap.
-  for (const qa of bank) {
-    const words = qa.q.toLowerCase().split(/\s+/).filter((w) => w.length > 3);
-    if (words.some((w) => lower.includes(w))) return qa.a;
   }
   return FALLBACK_BY_LANG[lang] ?? FALLBACK_BY_LANG.en;
 }

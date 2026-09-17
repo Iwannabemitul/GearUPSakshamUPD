@@ -295,14 +295,16 @@ async function callLlm(text: string, lang: string): Promise<string | null> {
 function mockMatch(lang: string, text: string): string | null {
   const bank = QA_BY_LANG[lang] || QA_BY_LANG.en;
   const lower = text.toLowerCase().trim();
-  // Exact-substring match
+  // Exact-substring match only — e.g. the user pastes/types one of the
+  // canned FAQ questions verbatim (or close to it). Deliberately NOT doing
+  // fuzzy keyword-overlap matching here: an earlier version matched on any
+  // shared word longer than 3 characters, with no word-boundary check and
+  // no punctuation stripping, which meant almost any question (even
+  // "what's 2+2" or "how do I drop a table in SQL?") accidentally matched
+  // a canned answer via a substring like "what" or "sql?" and the real LLM
+  // was never reached. Real free-form questions should go to the LLM.
   for (const qa of bank) {
     if (lower.includes(qa.q.toLowerCase())) return qa.a;
-  }
-  // Keyword overlap (words > 3 chars)
-  for (const qa of bank) {
-    const words = qa.q.toLowerCase().split(/\s+/).filter((w) => w.length > 3);
-    if (words.some((w) => lower.includes(w))) return qa.a;
   }
   return null;
 }
