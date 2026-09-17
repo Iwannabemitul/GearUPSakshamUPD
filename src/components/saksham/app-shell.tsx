@@ -216,6 +216,14 @@ function AppShellInner() {
       proctor.showToast(t("common.navLockedToast"));
       return;
     }
+    // Sidebar navigation should always be able to leave the post-assessment
+    // Result screen (it's intentionally NOT part of `locked` above — you're
+    // done, not mid-exam). But the page router checks quiz.page before the
+    // sidebar's own `page` state, so without this the Result view would
+    // keep rendering no matter which sidebar item you clicked next.
+    if (quiz.page === "result") {
+      quiz.exitTo("list");
+    }
     setPage(key);
     setMobileOpen(false);
     if (typeof window !== "undefined") {
@@ -304,7 +312,7 @@ function AppShellInner() {
       </a>
 
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex w-64 shrink-0 bg-white border-r border-[var(--line)] flex-col">
+      <aside className="hidden lg:flex w-64 shrink-0 bg-white border-r border-[var(--line)] flex-col sticky top-0 h-screen">
         {SidebarContent}
       </aside>
 
