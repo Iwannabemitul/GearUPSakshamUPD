@@ -1,0 +1,12 @@
+   {
+     "services": {
+       "realtime": {
+         "root": "mini-services/realtime-service",
+         "startCommand": "bun index.ts"
+       },
+       "ai": {
+         "root": "mini-services/ai-service",
+         "startCommand": "bun index.ts"
+       }
+     }
+   }
