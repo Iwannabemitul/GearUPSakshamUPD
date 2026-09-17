@@ -22,7 +22,7 @@ import { createServer, type IncomingMessage, type ServerResponse } from "http";
 import { Server } from "socket.io";
 import { availableProviders, chatComplete } from "./llm";
 
-const PORT = 3003;
+const PORT = Number(process.env.PORT ?? 3003);
 
 // --- Mock QA database (mirrors src/lib/ai-widget.tsx) ----------------------
 

@@ -26,7 +26,7 @@ import { createServer } from "node:http";
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { Server, type Socket } from "socket.io";
 
-const PORT = Number(process.env.REALTIME_PORT ?? 3004);
+const PORT = Number(process.env.PORT ?? process.env.REALTIME_PORT ?? 3004);
 const FANOUT_SECRET = process.env.FANOUT_SECRET ?? "";
 const PING_INTERVAL_MS = 25_000;
 const OFFLINE_AFTER_MS = 60_000;
